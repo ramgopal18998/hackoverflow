@@ -1,0 +1,10 @@
+django==1.10
+django-smart-selects
+django-debug-toolbar
+django-debug-panel
+requests
+pyjwt
+fuzzywuzzy
+unidecode
+Pillow
+xlwt
