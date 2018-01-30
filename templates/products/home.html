@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Online Shopping::FARMERS</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<style>
+.productbox {
+    background-color:#ffffff;
+	padding:10px;
+	margin-bottom:10px;
+	-webkit-box-shadow: 0 8px 6px -6px  #999;
+	   -moz-box-shadow: 0 8px 6px -6px  #999;
+	        box-shadow: 0 8px 6px -6px #999;
+}
+
+.producttitle {
+    font-weight:bold;
+	padding:5px 0 5px 0;
+}
+
+.productprice {
+	border-top:1px solid #dadada;
+	padding-top:5px;
+}
+
+.pricetext {
+	font-weight:bold;
+	font-size:1.4em;
+}
+</style>
+<body>
+<div class="pull-right"><a href="{% url 'products:mycart' %}" class="btn btn-primary btn-lg" role="button" style="margin: 10px">My Cart</a></div>
+    
+{% for p in products %}
+
+<div class="col-md-3 column productbox">
+	<a href="{% url 'products:detail_view' p.id %}">
+    <img src="{{p.image.url}}" class="img-responsive">
+	</a>
+    <div class="producttitle">{{p.name}}</div>
+    <div class="productprice">
+    	<br>
+    	 <div class="pricetext">&#8377; <strike>{{p.price}}</strike> {{p.discounted_price}}</div></div><br><br>
+    <div class="pull-left"><a href="#" class="btn btn-primary btn-sm" role="submit">BUY</a></div>
+    <span>&nbsp;&nbsp;</span>
+    <div class="pull-left"><a onclick="add_to_cart({{p.id}})" class="btn btn-danger btn-sm" role="submit">Add to Cart</a></div>
+ </div>  
+</div>
+
+{% endfor %}
+
+
+
+
+<button type="button" class="btn btn-info btn-lg" onclick="model();" data-toggle="modal" data-target="#myModal">Open Modal</button>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body" id="modal-text">
+          <p>Some text in the modal.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+
+
+
+
+</body>
+
+
+
+<script>
+	function add_to_cart(p_id){
+		
+		$.ajax({
+				type: "POST",
+				url: '/products/add_to_cart/',
+				data: { 'p_id':p_id
+						},
+				success: function(data){
+					if(data=="success"){ alert("Success! Added to Cart."); }
+					else{ alert("Already in Cart!"); }
+					
+				},
+				error:  function(){
+					alert("THere was some error.");
+				}
+		});
+	}
+
+
+</script>
+
+
+<script type="text/javascript">
+	function model(){
+		var url = "http://127.0.0.1:8000/chat";
+		var res = httpGet(url);
+		$('#modal-text').html(res);
+	}
+</script>
+
+
+<script type="text/javascript">
+	var url = "http://127.0.0.1:8000/user_panel/chatbot";
+	//httpGet(url);
+	function httpGet(url)
+		{
+		    var xmlHttp = new XMLHttpRequest();
+		    xmlHttp.open( "GET", url, false ); // false for synchronous request
+		    xmlHttp.send( null );
+		    return xmlHttp.responseText;
+		}
+</script>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<title>My Cart::Online Store</title>
+	<style type="text/css">
+		.table>tbody>tr>td, .table>tfoot>tr>td{
+    vertical-align: middle;
+}
+@media screen and (max-width: 600px) {
+    table#cart tbody td .form-control{
+		width:20%;
+		display: inline !important;
+	}
+	.actions .btn{
+		width:36%;
+		margin:1.5em 0;
+	}
+	
+	.actions .btn-info{
+		float:left;
+	}
+	.actions .btn-danger{
+		float:right;
+	}
+	
+	table#cart thead { display: none; }
+	table#cart tbody td { display: block; padding: .6rem; min-width:320px;}
+	table#cart tbody tr td:first-child { background: #333; color: #fff; }
+	table#cart tbody td:before {
+		content: attr(data-th); font-weight: bold;
+		display: inline-block; width: 8rem;
+	}
+	
+	
+	
+	table#cart tfoot td{display:block; }
+	table#cart tfoot td .btn{display:block;}
+	
+}
+	</style>
+</head>
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+<body>
+<div class="container">
+	<h1 align="center">My Cart</h1>
+	<table id="cart" class="table table-hover table-condensed">
+    				<thead>
+						<tr>
+							<th style="width:50%">Product</th>
+							<th style="width:10%">Price</th>
+							<th style="width:8%">Quantity</th>
+							<th style="width:22%" class="text-center">Subtotal</th>
+							<th style="width:10%"></th>
+						</tr>
+					</thead>
+					<form id="main">
+					<tbody id="parent">
+						{% for item in items %}
+						<tr>
+							<td data-th="Product">
+								<div class="row">
+									<div class="col-sm-2 hidden-xs"><img height="50px" width="50px" src="{{item.product.image.url}}"/></div>
+									<div class="col-sm-10">
+										<input type="hidden" value="{{ item.id }}">
+										<h4 class="nomargin">{{item.product.name}}</h4>
+										<p>{{item.product.description}}</p>
+									</div>
+								</div>
+							</td>
+								<!-- left -->
+
+								<td data-th="Price" width="20%"><span>&#8377;&nbsp;</span>
+									<span>{{ item.product.discounted_price }}</span></td>
+
+							<td data-th="Quantity">
+								<input type="number" onchange="update(this);"
+onkeyup="this.onchange();" onpaste="this.onchange();" oninput="this.onchange();" value="{{item.quantity}}">
+							</td>
+
+
+							<td data-th="Subtotal" class="text-center">
+								<span>&#8377;&nbsp;</span>
+								<span>{{ item.total_price }}</span>
+							</td>
+							<td class="actions" data-th="">
+								<button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
+								<a href="{% url 'products:delete_from_cart' item.id %}"><button class="btn btn-danger btn-sm"><i class="fa fa-trash-o"></i></button>	</a>							
+							</td>
+						</tr>
+						{% endfor %}
+					</tbody>
+					<tfoot>
+						<tr class="visible-xs">
+							<td class="text-center"><strong>Total </strong></td>
+						</tr>
+						<tr>
+							<td><a href="{% url 'products:index' %}" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+							<td colspan="2" class="hidden-xs"></td>
+
+							<td class="hidden-xs text-center">&#8377;&nbsp;<strong id="gTotal">0</strong></td>
+							<td><a class="btn btn-success btn-block"><button type="submit">Checkout</button> <i class="fa fa-angle-right"></i></a></td>
+						</tr>
+					</tfoot>
+				</table>
+			</form>
+</div>
+
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title"></h4>
+        </div>
+        <div class="modal-body" id="modal-text">
+        <form id="address">
+		    <div class="form-group">
+		      <label class="control-label col-sm-2" for="review">Address </label>
+		      <div class="col-sm-10">
+		      <textarea class="form-control" id="addr" placeholder="Enter Address..">{{customer.address}}</textarea>
+		      </div>
+		    </div>
+		    <div class="form-group">        
+		      <div class="col-sm-offset-2 col-sm-10">
+		        <button type="submit" class="btn btn-primary" >Place Order</button>
+		      </div>
+		    </div>
+		  </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+</body>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		var total = $('#gTotal');
+		$('#gTotal').html(0);
+		var table = $('#parent');
+		$(table).children().each(function(){
+			var current = Math.round(parseFloat($(total).html())*100)/100;
+			var price = Math.round(parseFloat($(this).children().eq(3).children().eq(1).html())*100)/100;
+			var x = Math.round((current+price)*100)/100;
+			$(total).html(x);
+		});	
+	});
+	function update(input){
+		var left = $(input).parent().parent().children().eq(1).children().eq(1);
+		var right = $(input).parent().parent().children().eq(3).children().eq(1);
+		var y = $(input).val() * $(left).html();
+		$(right).html(Math.round(y*100)/100);
+
+		var table = $(input).parent().parent().parent();
+		var total = $('#gTotal');
+		$('#gTotal').html(0);
+		$(table).children().each(function(){
+			var current = Math.round(parseFloat($(total).html())*100)/100;
+			var price = Math.round(parseFloat($(this).children().eq(3).children().eq(1).html())*100)/100;
+			var x = Math.round((current+price)*100)/100;
+			$(total).html(x);
+		});	
+
+	}
+</script>
+<script type="text/javascript">
+	$('#main').submit(function(e){
+		e.preventDefault();
+		var table = $('#parent');
+		var data = {'id':[],'quantity':[]};
+		$(table).children().each(function(){
+			var id = $(this).children().eq(0).children().eq(0).children().eq(1).children().eq(0);
+			//console.log($(id).html());
+			data['id'].push($(id).val());
+			var quantity = $(this).children().eq(2).children().eq(0).val();
+			data['quantity'].push(quantity);
+		});	
+		console.log(data);
+
+		$.ajax({
+			type: "POST",
+			url: "/products/checkout/",
+			data:data,
+			success: function(data){
+				console.log(data);
+				$('#myModal').modal('show');
+			}
+		});
+
+	});
+
+
+
+	$('#address').submit(function(e){
+		console.log($('#address').val());
+		e.preventDefault();
+		data = { 'address': $('#addr').val() }
+		console.log(data);
+		$.ajax({
+			type: "POST",
+			url: "/products/buynow/",
+			data:data,
+			success: function(data){
+				console.log(data);
+				alert("order placed");
+				$('#myModal').modal('hide');
+				
+			}
+		});
+
+	});
+</script>
+
+
+</html>

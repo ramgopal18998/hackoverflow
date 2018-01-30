@@ -1,0 +1,10 @@
+{
+  "name": "NACOF",
+  "version": "0.0.1",
+  "dependencies": {
+    "express": "^4.16.2",
+    "nodemon": "^1.14.11",
+    "socket.io": "^2.0.4",
+    "xmlhttprequest": "^1.8.0"
+  }
+}

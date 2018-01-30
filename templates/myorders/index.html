@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Online Shopping::FARMERS</title>
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<style>
+.productbox {
+    background-color:#ffffff;
+	padding:10px;
+	margin-bottom:10px;
+	-webkit-box-shadow: 0 8px 6px -6px  #999;
+	   -moz-box-shadow: 0 8px 6px -6px  #999;
+	        box-shadow: 0 8px 6px -6px #999;
+}
+
+.producttitle {
+    font-weight:bold;
+	padding:5px 0 5px 0;
+}
+
+.productprice {
+	border-top:1px solid #dadada;
+	padding-top:5px;
+}
+
+.pricetext {
+	font-weight:bold;
+	font-size:1.4em;
+}
+</style>
+<body>
+
+    
+{% for p in orders %}
+
+<div class="col-md-3 column productbox">
+    
+    <div class="producttitle">{{p.bill}}</div>
+    <div class="producttitle">{{p.created}}</div>
+        <div class="producttitle">{{p.grand_total}}</div>
+         <div class="producttitle">{{p.cart.count}}</div>
+         {% if p.status == 0 %}
+         <div class="producttitle">Order Placed</div>
+         {%endif%}
+         {% if p.status == 1 %}
+         <div class="producttitle">Order Dispatched</div>
+         {%endif%}
+         {% if p.status == 2 %}
+         <div class="producttitle">Order Delivered</div>
+         {%endif%}
+
+
+         <div><a href="{%url 'myorders:detail' p.bill %}" class="btn btn-primary">Details</a></div>
+         <div><a href="{%url 'myorders:invoice' p.bill %}" class="btn btn-primary">Invoice</a></div>
+
+
+    <div class="productprice">
+    	<br>
+   </div>
+ </div>  
+</div>
+
+{% endfor %}
+</body>
+
+
+
+
+</html>

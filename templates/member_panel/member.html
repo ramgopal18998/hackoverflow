@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Member Panel</h2>
+  
+
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#home">Pending</a></li>
+    <li><a data-toggle="tab" href="#menu1">Delivered</a></li>
+    <li><a data-toggle="tab" href="#menu2">Update Tracking</a></li>
+    <li><a data-toggle="tab" href="#menu3">End an order</a></li>
+  </ul>
+
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <h3>Pending</h3>
+      <p>{% for p in pending %}
+      {{p.bill}} {{p.customer.FirstName}} {{p.customer.mobile}} {{p.created}} 	<br><br>
+      {% endfor %}
+
+      		</p>
+    </div>
+    <div id="menu1" class="tab-pane fade">
+      <h3>Delivered</h3>
+      <p>{% for p in delivered %}
+      {{p.bill}} {{p.customer.FirstName}} {{p.customer.mobile}} {{p.created}} 	<br>
+      {% endfor %}
+
+      		</p>
+
+
+
+    </div>
+     <div id="menu3" class="tab-pane fade">
+      <h3>End an order 3</h3>
+      <form class="form-horizontal" id="payment">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="bill">Enter BillNo:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="bill" onkeyup="getSearchResults(this)" placeholder="Enter Bill"  name="bill" autocomplete="off">
+        <div id="demo"></div>
+      </div>
+    </div>
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-success">Cash recieved</button>
+      </div>
+    </div>
+  </form>
+    </div>
+    <div id="menu2" class="tab-pane fade">
+      <h3>Update Tracking</h3>
+      <form class="form-horizontal" id="track">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="bill">Enter BillNo:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="bill_update" onkeyup="getSearchResults_updateTrack(this)" placeholder="Enter Bill"  name="bill" autocomplete="off">
+        <div id="demo_updateTrack"></div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="status">Update Status:</label>
+      <div class="col-sm-10">          
+        <textarea class="form-control" id="status" placeholder="Enter Status" name="status" width="200px" height="400px"></textarea>  
+      </div>
+    </div>
+
+    <div class="form-group">
+    <label class="control-label col-sm-2" for="time">Estimated Time Left:</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="time" placeholder="Enter Time Left"  name="time" >        
+    </div>
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-success">Submit</button>
+      </div>
+    </div>
+  </form>
+    </div>
+   
+    </div>
+
+    
+ 
+
+<script type="text/javascript">
+	function getSearchResults(bill)
+	{
+		$('#demo').text("");
+		if(bill.value!=""){
+	
+			console.log("Post request..");
+			$('#demo').text("");
+			$.ajax({
+				type: "POST",
+				url: '/member_panel/',
+				data: {'bill':bill.value},
+				success: function(data){
+					console.log(data);
+					for(key in data)
+					{
+						var res = data[key]['fields']['bill'];
+						var BILL = $('<a></a>');
+						BILL.attr('onclick','').click(function(){
+							bill.value=res;
+							$('#demo').text("");
+						});
+						BILL.append(res,'<br>');
+						$('#demo').append(BILL);
+					}
+				},
+				error:  function(){
+					alert("THere was some error.");
+				}
+			});
+		}
+
+	}
+
+
+
+	function getSearchResults_updateTrack(bill)
+	{
+		$('#demo_updateTrack').text("");
+		if(bill.value!=""){
+	
+			console.log("Post request..");
+			$('#demo_updateTrack').text("");
+			$.ajax({
+				type: "POST",
+				url: '/member_panel/',
+				data: {'bill':bill.value},
+				success: function(data){
+					console.log(data);
+					for(key in data)
+					{
+						var res = data[key]['fields']['bill'];
+						var BILL = $('<a></a>');
+						BILL.attr('onclick','').click(function(){
+							bill.value=res;
+							$('#demo_updateTrack').text("");
+						});
+						BILL.append(res,'<br>');
+						$('#demo_updateTrack').append(BILL);
+					}
+				},
+				error:  function(){
+					alert("THere was some error.");
+				}
+			});
+		}
+
+	}
+
+
+	
+</script>
+
+<script>
+	$('#track').submit(function(e){
+		e.preventDefault();
+		
+		$.ajax({
+				type: "POST",
+				url: '/member_panel/track_update',
+				data: { 'bill': $("#bill_update").val(),
+						'status':$("#status").val(),
+						'time':$("#time").val()
+						},
+				success: function(data){
+					console.log(data);
+					if(data=='error')
+						alert("you have entered a wrong BillNo");
+					else if(data=='success')
+						alert("Tracking of user has been successfully updated");
+					else
+						alert("The product is not yet Dispatched");
+				},
+				error:  function(){
+					alert("THere was some error.");
+				}
+			});
+	});
+</script>
+
+<script>
+	$('#payment').submit(function(e){
+		e.preventDefault();
+		var data={'bill':$('#bill').val()};
+		console.log(data);
+		$.ajax({
+			type: "POST",
+			url: "/member_panel/payment",
+			data:{'bill':$('#bill').val()},
+			success: function(data){
+				console.log(data);	
+				if(data=="success")
+					alert("Payment done");
+				else
+					alert("please check the billNo");
+			}
+		})
+	})
+</script>
+</body>
+</html>
