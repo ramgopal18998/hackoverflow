@@ -37,3 +37,9 @@ class Review(models.Model):
 
 	def __str__(self):
 		return self.description
+
+
+
+class Weather(models.Model):
+	type = models.CharField( null=False , max_length=100)
+	image = models.FileField(null=True)

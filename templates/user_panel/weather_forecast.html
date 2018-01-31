@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<title>Profile</title>
+</head>
+<body>
+	<h2>Weather Forecast</h2>
+	{% for i in forecast %}
+		<div class="col-sm-4">
+			<img src="{{i.image.url}}" style="width: 150px;height: 150px;float: left;">
+			<p>	Date:{{i.date}}</p>
+			<p>Day:{{i.day}}</p>
+			<p>High:{{i.high}}</p>
+			<p>Low:{{i.low}}</p>
+			<p>Text:{{i.text}}</p>
+		</div>
+		
+		
+	{%endfor%}
+
+</body>
+</html>

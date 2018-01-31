@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<title>Profile</title>
+</head>
+<body>
+<div class="col-sm-9">
+	<h2>Welcome Ramgopal</h2>
+</div>
+
+<div class="col-sm-3" style="padding-top: 70px">
+
+<img src="{{weather_img.image.url}}" style="width: 100px;height: 100px;float: left">
+<p id="demo"></p>
+
+
+
+<form action="/user_panel/weather_forecast" method="POST" type="POST">
+
+	<input type="hidden" name="latitude" id="lat" value="yo">
+	<input type="hidden" name="longitude" id="lon" value="yo">
+	<button type="submit">Get ForeCast</button>
+</form>
+
+<p>{{weather.temp}}</p>
+<p>{{weather.text}}</p>
+<p>{{weather.date}}</p>
+</div>
+
+</body>
+
+<script>
+getLocation();
+	function getLocation() {
+	   if (navigator.geolocation) {
+	       navigator.geolocation.getCurrentPosition(showPosition);
+	   } else {
+	       x.innerHTML = "Geolocation is not supported by this browser.";
+	   }
+	}
+	function showPosition(position) {
+		
+	  	$('#lat').val(position.coords.latitude);
+	  	$('#lon').val(position.coords.longitude);
+	}
+</script>
+</html>
+
+
+
+
+

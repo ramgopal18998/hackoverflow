@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Customer,Review
+from .models import Customer,Review,Weather
 
 # Register your models here.
 
@@ -11,5 +11,9 @@ admin.site.register(Customer,CustomerAdmin)
 class ReviewAdmin(admin.ModelAdmin):
 	list_display = ["description","customer"]
 admin.site.register(Review,ReviewAdmin)
+
+class WeatherAdmin(admin.ModelAdmin):
+	list_display = ["type","image"]
+admin.site.register(Weather,WeatherAdmin)
 
 

@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from translator import get_in_hindi,get_utube
 import wikipedia
 from django.http import HttpResponse, HttpResponseRedirect,JsonResponse
@@ -16,6 +16,9 @@ import urllib
 import json
 from django.contrib.auth import authenticate, login
 import codecs
+from weather import get_weather,getCity
+import pytemperature
+from user_panel.models import Weather
 
 
 def translator(request):
@@ -76,12 +79,9 @@ def login_user(request):
 					login(request,user)
 					customer = Customer.objects.get(user_id=request.user.id)
 					if customer.type == "Member":
-						pending = Order.objects.filter(status=1)
-						delivered = Order.objects.filter(status=2)
-						return render(request, 'member_panel/member.html', {'pending': pending,'delivered':delivered})
+						return redirect('/member_panel')
 					else:
-						products = ProductData.objects.all()
-						return render(request, 'products/home.html', {'products':products})
+						return redirect('/products')
 				else:
 					return render(request, 'user_panel/login.html', {'error_message': 'Your account has been disabled'})
 
@@ -90,6 +90,47 @@ def login_user(request):
 		else:
 			return render(request, 'user_panel/login.html', {'error_message': 'Invalid reCAPTCHA. Please try again.'})
 
+
+def profile(request):
+	city = 'bilaspur'
+	results = get_weather(city)
+	date = results['query']['results']['channel'][0]['item']['condition']['date']
+	temp = pytemperature.f2c(int(results['query']['results']['channel'][0]['item']['condition']['temp']))
+	text = results['query']['results']['channel'][0]['item']['condition']['text']
+	weather_img = Weather.objects.get(type=text)
+	weather = {}
+	weather['date'] = date
+	weather['temp'] = temp
+	weather['text'] = text
+	return render(request,'user_panel/profile.html',{'weather':weather,'weather_img':weather_img})
+
+
+@csrf_exempt
+def weather_forecast(request):
+	lat = request.POST['latitude']
+	lon = request.POST['longitude']
+
+	city = getCity(lat,lon)
+	print("City detected : ",city)
+	results = get_weather(city)
+	forecast = []
+	for i in range(0,10):
+		entry = {}
+		entry['high'] = results['query']['results']['channel'][i]['item']['forecast']['high']
+		entry['low'] = results['query']['results']['channel'][i]['item']['forecast']['low']
+		entry['text'] = results['query']['results']['channel'][i]['item']['forecast']['text']
+		entry['day'] = results['query']['results']['channel'][i]['item']['forecast']['day']
+		entry['date'] = results['query']['results']['channel'][i]['item']['forecast']['date']
+		text = results['query']['results']['channel'][i]['item']['forecast']['text']
+		try:
+			weather_img = Weather.objects.get(type=text)
+		except:
+			print("not for : ",text)	
+		entry['image'] = weather_img.image
+		forecast.append(entry)
+
+	#print(forecast)
+	return render(request,'user_panel/weather_forecast.html',{'forecast':forecast})
 
 
 
