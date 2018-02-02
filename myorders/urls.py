@@ -8,6 +8,7 @@ urlpatterns = [
 	url(r'^$', views.index, name='index'),
 	url(r'^(?P<bill_id>[0-9]+)$', views.detail, name='detail'),
     url(r'^(?P<p_id>[0-9]+)/review$', views.review, name='review'),
+    url(r'^ratings$', views.ratings, name='ratings'),
 	url(r'^(?P<p_id>[0-9]+)/invoice$', GeneratePDF.as_view(), name='invoice'),
     
     

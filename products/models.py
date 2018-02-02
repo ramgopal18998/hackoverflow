@@ -50,6 +50,7 @@ class ProductData(models.Model):
 	discount_percentage = models.DecimalField(null=True,decimal_places=2,max_digits=50)
 	discounted_price = models.DecimalField(null=True,decimal_places=2,max_digits=50)
 	reviews = models.ManyToManyField('user_panel.Review',blank=True)
+	stars = models.DecimalField(default=3,decimal_places=1,max_digits=50)
 
 	def __str__(self):
 		return self.name

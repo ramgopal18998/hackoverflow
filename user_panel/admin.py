@@ -15,5 +15,3 @@ admin.site.register(Review,ReviewAdmin)
 class WeatherAdmin(admin.ModelAdmin):
 	list_display = ["type","image"]
 admin.site.register(Weather,WeatherAdmin)
-
-

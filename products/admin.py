@@ -14,6 +14,6 @@ class CategoryDataAdmin(admin.ModelAdmin):
 admin.site.register(CategoryData,CategoryDataAdmin)
 
 class ProductDataAdmin(admin.ModelAdmin):
-    list_display = ["name","description","category","image"]
+    list_display = ["name","description","category","image","stars"]
 
 admin.site.register(ProductData,ProductDataAdmin)

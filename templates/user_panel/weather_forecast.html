@@ -9,8 +9,8 @@
 <body>
 	<h2>Weather Forecast</h2>
 	{% for i in forecast %}
-		<div class="col-sm-4">
-			<img src="{{i.image.url}}" style="width: 150px;height: 150px;float: left;">
+		<div class="col-sm-4" style="left;padding-top:20px;padding-bottom:20px;">
+			<img src="{{i.image.url}}" style="width: 150px;height: 150px;float: ">
 			<p>	Date:{{i.date}}</p>
 			<p>Day:{{i.day}}</p>
 			<p>High:{{i.high}}</p>

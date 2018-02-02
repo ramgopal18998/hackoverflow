@@ -9,6 +9,7 @@ from io import BytesIO
 from django.template.loader import get_template
 from xhtml2pdf	import pisa
 from django.views.generic import View
+import decimal
 
 
 def index(request):
@@ -69,6 +70,30 @@ class GeneratePDF(View):
 		html = template.render(context)
 		pdf = render_to_pdf("invoice.html",context)
 		return HttpResponse(pdf,content_type='application/pdf')
+@csrf_exempt
+def ratings(request):
+	if request.method=="POST":
+		rating = float(request.POST.get('rating',False))
+		pid = request.POST.get('p_id',False)
+		try:
+			customer = Customer.objects.get(user_id=request.user.id)
+			print(customer.id)
+			rate = Cart.objects.get(customer_id=customer.id,product_id=pid)
+			if rate.rating == '0':
+				product = ProductData.objects.get(id=pid)
+				star = float(product.stars)
+				star += rating
+				star = star/2
+				print("present ... ",product.stars)
+				product.stars = decimal.Decimal(star)
+				product.save()
+				cart = Cart.objects.get(customer_id=customer.id,product_id=pid)
+				cart.rating = rating
+				cart.save()
+				return HttpResponse("success")
+			else:
+				return HttpResponse("failed")
+		except:
+			return HttpResponse("error")
 
-	
 

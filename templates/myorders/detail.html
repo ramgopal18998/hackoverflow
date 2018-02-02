@@ -10,33 +10,134 @@
   	alert("{{msg}}");
   	{% endif %}
   </script>
+  <style>
+.rating {
+  display: inline-block;
+  position: relative;
+  height: 50px;
+  line-height: 50px;
+  font-size: 50px;
+}
+
+.rating label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  cursor: pointer;
+}
+
+.rating label:last-child {
+  position: static;
+}
+
+.rating label:nth-child(1) {
+  z-index: 5;
+}
+
+.rating label:nth-child(2) {
+  z-index: 4;
+}
+
+.rating label:nth-child(3) {
+  z-index: 3;
+}
+
+.rating label:nth-child(4) {
+  z-index: 2;
+}
+
+.rating label:nth-child(5) {
+  z-index: 1;
+}
+
+.rating label input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+
+.rating label .icon {
+  float: left;
+  color: transparent;
+}
+
+.rating label:last-child .icon {
+  color: #000;
+}
+
+.rating:not(:hover) label input:checked ~ .icon,
+.rating:hover label:hover input ~ .icon {
+  color: #09f;
+}
+
+.rating label input:focus:not(:checked) ~ .icon:last-child {
+  color: #000;
+  text-shadow: 0 0 5px #09f;
+}
+
+</style>
 </head>
 <body>
 <h2>Bill No {{order.bill}} </h2><span>placed at {{order.created}}</span>
 <br>
 <h4>Total {{order.grand_total}}</h4>
+<img src="#" onload="myfunction();">
 {% for c in cart %}
-<div class="col-sm-6">
-	<div class="row">
-	<div class="col-sm-6">
 	<img src="{{c.product.image.url}}" class="img-responsive">
 	<button type="submit" class="btn btn-info btn-lg" data-toggle="modal" onclick="modal_fired('{{c.product.id}}','{{c.product.name}}')" data-target="#myModal">Review It</button>
-</div>
-<div class="col-sm-4">
+
 	<p style="">{{c.product.name}}</p>
 <p>{{c.quantity}}</p>
 <p>{{c.total_price}}</p>
-</div>	
-</div>
-</div>
+
+{% if c.rating == '0' %}
+<form class="rating" id='stars'>
+  <label>
+    <input type="radio" name="stars" value="1" onclick="star(this.value,'{{c.product.id}}')"/>
+    <span class="icon">★</span>
+  </label>
+  <label>
+    <input type="radio" name="stars" value="2" onclick="star(this.value,'{{c.product.id}}')" />
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+  </label>
+  <label>
+    <input type="radio" name="stars" value="3" onclick="star(this.value,'{{c.product.id}}')"/>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>   
+  </label>
+  <label>
+    <input type="radio" name="stars" value="4" onclick="star(this.value,'{{c.product.id}}')" />
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+  </label>
+  <label>
+    <input type="radio" name="stars" value="5" onclick="star(this.value,'{{c.product.id}}')" />
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+    <span class="icon">★</span>
+  </label>
+
+</form>
+	
+{% else%}
+<h4>You have rated {{c.product.name}} as {{c.rating}} stars</h4>
+{% endif%}
+
+
 {% endfor %}
-<div class="col-sm-8">
-	<div class="row">
+
 		<h2>Delivery Tracking</h2>
 		<p>Status: {{delivery.location}}</p>
 		<p>Estimated Time Left: {{delivery.time_left}}</p>
-	</div>
-</div>
+	
 
 	<!-- Modal -->
   <div class="modal fade" id="myModal" role="dialog">
@@ -104,5 +205,31 @@
 		});
 		}
 	});
+</script>
+<script>
+	function star(rating,p_id)
+	{
+
+		console.log(rating)
+		console.log(p_id)
+		data = {'rating': rating,
+				  'p_id':p_id};
+		$.ajax({
+
+			type:"POST",
+			url: "/myorders/ratings",
+			data:data,
+			success:function(data){
+				if(data=='success')
+					alert('You Rating is submitted Successfully');
+				else if(data == 'failed')
+					alert('You already Rated It');
+				else
+					alert('Some error occured')
+			}
+
+		})
+	}
+
 </script>
 </html>

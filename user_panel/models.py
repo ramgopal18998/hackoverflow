@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from products.models import ProductData
 
 
 
@@ -15,7 +16,7 @@ class Customer(models.Model):
 	LastName = models.CharField( null=False , max_length=100)
 	address = models.CharField( null=True , max_length=500)
 	email = models.CharField( null=False , max_length=500)
-	state = models.CharField( null=True , max_length=500)
+	city = models.CharField( null=True , max_length=500)
 	mobile = models.CharField( null=False,max_length=10 )
 	pin = models.CharField( null=True,max_length=6 )
 	image = models.FileField(null=True)
@@ -43,3 +44,4 @@ class Review(models.Model):
 class Weather(models.Model):
 	type = models.CharField( null=False , max_length=100)
 	image = models.FileField(null=True)
+

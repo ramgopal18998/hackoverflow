@@ -18,6 +18,10 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from user_panel import views
+from django.contrib.auth.views import (
+    password_reset, password_reset_done, password_reset_confirm,
+    password_reset_complete
+)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
@@ -29,8 +33,17 @@ urlpatterns = [
     url(r'^cart/',include('cart.urls')),
     url(r'^myorders/',include('myorders.urls')),
     url(r'^login/',views.login_user, name='login'),
+    url(r'^register/',views.register_user, name='register'),
+    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',views.activate, name='activate'),
 
+    #reset password
+    url(r'^reset-password$',password_reset,{'template_name':'password/reset_password.html','post_reset_redirect':'password_reset_done','email_template_name': 'password/reset_password_email.html'},name='reset_password'),
+    url(r'^reset-password/done/$', password_reset_done, {'template_name': 'password/reset_password_done.html'}, name='password_reset_done'),
+    url(r'^reset-password/confirm/(?P<uidb64>[0-9A-Za-z]+)-(?P<token>.+)/$', password_reset_confirm, {'template_name': 'password/reset_password_confirm.html', 'post_reset_redirect': 'password_reset_complete'}, name='password_reset_confirm'),
+    url(r'^reset-password/complete/$', password_reset_complete,{'template_name': 'password/reset_password_complete.html'}, name='password_reset_complete'),
 ]
+
+
 
 
 
