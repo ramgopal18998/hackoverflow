@@ -5,7 +5,7 @@ from django.http import HttpResponse, HttpResponseRedirect,JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from myorders.models import Order
-from . models import Customer
+from . models import Customer,Questions,Likes
 from django.contrib.auth.models import User
 from django.contrib.auth import login as auth_login
 from products.models import ProductData
@@ -174,26 +174,6 @@ def register_user(request):
             )
 		email1.send()
 		return HttpResponse('Please confirm your email address to complete the registration')
-		# customer = Customer()
-		# user1 = User.objects.get(username=first_name)
-		# customer.user_id = user1.id
-		# customer.FirstName = first_name
-		# customer.LastName = last_name
-		# customer.mobile = mobile
-		# customer.address = address
-		# customer.pin = pin
-		# customer.city = city
-		# customer.email = email
-		# customer.image = image
-		# customer.save()
-		# #send email
-		# subject = 'You have successfully registered'
-		# message = 'hey '+ user1.username +', your account has been registered successfully.'
-		# from_email = settings.EMAIL_HOST_USER
-		# to_list = [user.email,settings.EMAIL_HOST_USER]
-		# send_mail(subject,message,from_email,to_list,fail_silently = True)
-		# return redirect('/products')
-		
 def activate(request,uidb64,token):
 	try:
 		uid = force_text(urlsafe_base64_decode(uidb64))
@@ -203,11 +183,82 @@ def activate(request,uidb64,token):
 	if user is not None and account_activation_token.check_token(user, token):
 		user.is_active = True
 		user.save()
+		customer = Customer()
+		user1 = User.objects.get(username=first_name)
+		customer.user_id = user1.id
+		customer.FirstName = first_name
+		customer.LastName = last_name
+		customer.mobile = mobile
+		customer.address = address
+		customer.pin = pin
+		customer.city = city
+		customer.email = email
+		customer.image = image
+		customer.save()
+		#send email
+		subject = 'You have successfully registered'
+		message = 'hey '+ user1.username +', your account has been registered successfully.'
+		from_email = settings.EMAIL_HOST_USER
+		to_list = [user.email,settings.EMAIL_HOST_USER]
+		send_mail(subject,message,from_email,to_list,fail_silently = True)
+		return redirect('/products')
 		login(request, user)
-        # return redirect('home')
-		return HttpResponse('Thank you for your email confirmation. Now you can login your account.')
+		return redirect('/products')
 	else:
 		return HttpResponse('Activation link is invalid!')
+
+@csrf_exempt
+def faq(request):
+	if request.method =="GET":
+		questions = Questions.objects.all()
+		return render(request,'user_panel/questions.html',{'questions':questions})
+	else:
+		try:
+			query = Questions()
+			query.question = request.POST['query']
+			print(query.question)
+			query.user_id = request.user.id
+			query.save()
+			print("Saved")
+			return HttpResponse("Successful")
+		except:
+			print("error")
+			return HttpResponse("error")
+@csrf_exempt
+def like(request):
+	if request.method =="POST":
+		id = request.POST['id']
+		print(id)
+		try:
+			likes = Likes.objects.get(question_id=id,name=request.user.username)
+			return HttpResponse("already Registered")
+		except:
+			query = Questions.objects.get(id=id)
+			query.useful = query.useful + 1
+			query.save()
+			likes = Likes()
+			likes.question_id = id;
+			likes.name = request.user.username
+			likes.save()
+			return HttpResponse("success")
+
+@csrf_exempt
+def dislike(request):
+	if request.method =="POST":
+		id = request.POST['id']
+		try:
+			likes = Likes.objects.get(question_id=id,name=request.user.username)
+			return HttpResponse("already Registered")
+		except:
+			query = Questions.objects.get(id=id)
+			query.not_useful = query.not_useful + 1
+			query.save()
+			likes = Likes()
+			likes.question_id = id;
+			likes.name = request.user.username
+			likes.save()
+			return HttpResponse("success")
+
 
 
 

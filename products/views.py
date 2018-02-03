@@ -18,7 +18,7 @@ def add_to_cart(request):
 	print(p_id)
 	customer = Customer.objects.get(user_id=request.user.id)
 	# check if product already in cart
-	x = Cart.objects.filter(product_id=p_id,customer_id=customer.id)
+	x = Cart.objects.filter(product_id=p_id,customer_id=customer.id,status=0)
 	print(len(x))
 	if(len(x)):
 		return HttpResponse("already in cart")
@@ -35,7 +35,7 @@ def add_to_cart(request):
 def mycart(request):
 	if request.method=="GET":
 		customer = Customer.objects.get(user_id=request.user.id)
-		items = Cart.objects.filter(customer_id=customer.id)
+		items = Cart.objects.filter(customer_id=customer.id,status=0)
 		return render(request,'products/cart.html',{'items':items,'customer':customer})
 
 
@@ -71,6 +71,8 @@ def buynow(request):
 	order.save()
 	gtotal = 0
 	for cart in carts:
+		cart.status = 1
+		cart.save()
 		order.cart.add(cart)
 		gtotal += cart.total_price
 	order.grand_total = gtotal

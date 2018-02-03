@@ -1,0 +1,105 @@
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+     
+  <script src="http://bhuvan.nrsc.gov.in/map/api/lib/OpenLayers.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="http://bhuvan-staging.nrsc.gov.in/projects/OpenLayers-2.13.1/theme/default/style.css" type="text/css">
+    <link rel="stylesheet" href="http://bhuvan-staging.nrsc.gov.in/projects/OpenLayers-2.13.1/examples/style.css" type="text/css">
+
+    <script type="text/javascript">
+        OpenLayers.ProxyHost = "nrsc/Handler.ashx?url=";
+        OpenLayers.IMAGE_RELOAD_ATTEMPTS = 5;
+
+        var map, markers, popups = {};
+        function init() {
+            map = new OpenLayers.Map('map',
+                                                {
+                                                    controls: [
+                                                        new OpenLayers.Control.Navigation(),
+                                                        new OpenLayers.Control.PanZoomBar(),
+                                                        new OpenLayers.Control.LayerSwitcher({ 'ascending': false }),
+                                                        new OpenLayers.Control.Permalink(),
+                                                        new OpenLayers.Control.ScaleLine(),
+                                                        new OpenLayers.Control.MousePosition(),
+                                                        new OpenLayers.Control.KeyboardDefaults()
+                    	                                ],
+                                                    numZoomLevels: 12,
+                                                    maxResolution: 0.0439453125
+                                                }
+                                    );
+
+
+            var dummylayer = new OpenLayers.Layer("base__worl2", { isBaseLayer: true, 'displayInLayerSwitcher': false });
+
+
+
+
+            /// India with other country colourfull Service
+            var BaseMap = new OpenLayers.Layer.WMS("basemap",
+                                                    "http://bhuvannuis.nrsc.gov.in/bhuvan/gwc/service/wms/",
+				                                    { layers: "india3" },
+                                                    { isBaseLayer: false, visibility: false, attribution: "Admin Boundary - SOI" });
+
+
+
+
+
+            querylayer = new OpenLayers.Layer.WMS("farmer:mandinew", "http://bhuvan-staging.nrsc.gov.in/bhuvan214/wms",
+						{ layers: "farmer:mandinew", transparent: true }, { tileOptions: { maxGetUrlLength: 1024 }, transitionEffect: null, visibility: true });
+            map.addLayers([dummylayer, BaseMap, querylayer]);
+            map.setCenter(new OpenLayers.LonLat(81.6, 22.5), 0);
+            //////////////////////////////////////////////
+            BaseMap.setVisibility(true);
+            /////////////////////////////////
+
+
+            /////////////////////////////////
+            var userlyrinfo = new OpenLayers.Control.WMSGetFeatureInfo({
+                url: 'http://bhuvan-staging.nrsc.gov.in/bhuvan214/wms',
+                title: 'Identify features by clicking',
+                queryVisible: true,
+                eventListeners: {
+                    getfeatureinfo: function (evt) {
+
+                        var popupId = evt.xy.x + "," + evt.xy.y;
+
+                        var text;
+                        var match = evt.text.match(/<body[^>]*>([\s\States]*)<\/body>/);
+                        if (match && !match[1].match(/^\s*$/)) {
+                            text = match[1];
+                            var popup = popups[popupId];
+                            if (!popup || !popup.map) {
+                                var popup = new OpenLayers.Popup.FramedCloud(popupId, map.getLonLatFromPixel(evt.xy), null, evt.text, null, true, function (evt) {
+                                    delete popups[this.id];
+                                    this.hide();
+                                    OpenLayers.Event.stop(evt);
+                                });
+                                popups[popupId] = popup;
+                                map.addPopup(popup, true);
+                            }
+                            popup.setContentHTML(popup.contentHTML);
+                            popup.show();
+                        }
+
+                    }
+                }
+            });
+            map.addControl(userlyrinfo);
+            userlyrinfo.activate();
+
+
+
+            //////////////////////////////////
+        }
+
+        window.onload = init;
+
+    </script>
+     </head>
+    <body  bgcolor= "#ff0000" topmargin="0" leftmargin="0" rightmargin="0"  >
+     <div id="map"  style="height: 830px;width:910px;border: none;padding-top:0px; padding-left:0px; margin-left:0px; margin-top:0px">
+
+    </body>
+    </html>
+

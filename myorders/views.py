@@ -14,7 +14,8 @@ import decimal
 
 def index(request):
 	orders = Order.objects.filter(customer__user_id=request.user.id)
-	return render(request,'myorders/index.html',{ "orders":orders })
+	yourorder = orders.order_by('-created')
+	return render(request,'myorders/index.html',{ "orders":yourorder })
 
 def detail(request,bill_id):
 	order = Order.objects.get(bill=bill_id)

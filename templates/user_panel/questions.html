@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Frequently Asked Questions</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+	<h2>Frequently Asked Questions!!</h2>
+	<br><br>
+	{% for q in questions %}
+	{% if q.answer == '0' %}
+
+	<p><strong>{{q.user.username}}:-  </strong>  {{q.question}}</p>
+	<br><br>
+	{% else %}
+	<p><strong>{{q.user.username}}:-  </strong>  {{q.question}}</p>
+	<p><strong>Admin:  </strong>  {{q.answer}}</p>
+	<button class="btn btn-success glyphicon glyphicon-thumbs-up" onclick="up('{{q.id}}')"><span style="padding: 4px;">{{q.useful}}</span></button>
+	<button class="glyphicon glyphicon-thumbs-down btn btn-danger" onclick="down('{{q.id}}')" ><span style="padding: 4px;">{{q.not_useful}}</span></button>
+	{% endif %}
+
+	{% endfor %}
+	<form class="form-horizontal" id="question">
+    <div class="form-group">
+      <label class="control-label col-sm-2" for="query">Your Query:</label>
+      <div class="col-sm-10">
+       <textarea id="query" name="query" placeholder="Enter Your Query"></textarea> 
+       </div>
+    <div class="form-group">        
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default">Submit</button>
+      </div>
+    </div>
+  </form>
+
+</div>
+
+<script>
+	$('#question').submit(function(e){
+		e.preventDefault();
+		data = {'query': $('#query').val()};
+		console.log(data)
+		if($('#query').val()=='')
+		alert ("Empty");
+		else
+		{
+			$.ajax({
+			type: "POST",
+			url: "",
+			data:data,
+			success: function(data){
+				$('#query').text("");
+				console.log(data);	
+				if(data=="Successful")
+					alert("Question Submitted");
+				else
+					alert("Error Occured");
+			}
+
+	});
+		}
+	});
+</script>
+<script>
+	function up(id)
+	{
+		data={'id':id};
+		console.log("up")
+		$.ajax({
+			type: "POST",
+			url: "/user_panel/questions/like",
+			data:data,
+			success: function(data){
+				alert(data);
+			}
+
+	});
+	}
+
+	function down(id)
+	{
+		data={'id':id};
+		$.ajax({
+			type: "POST",
+			url: "/user_panel/questions/dislike",
+			data:data,
+			success: function(data){
+				alert(data);
+			}
+
+	});
+	}
+</script>
+</body>
+</html>

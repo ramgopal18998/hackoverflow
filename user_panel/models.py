@@ -45,3 +45,19 @@ class Weather(models.Model):
 	type = models.CharField( null=False , max_length=100)
 	image = models.FileField(null=True)
 
+class Questions(models.Model):
+	user = models.ForeignKey(User,on_delete=models.CASCADE)
+	question = models.CharField(null=True,max_length=1000)
+	answer = models.CharField(default=0,max_length=1000)
+	useful = models.IntegerField(default=0)
+	not_useful = models.IntegerField(default=0)
+	status = models.BooleanField(default=False)
+
+class Likes(models.Model):
+	question_id = models.IntegerField(default=0)
+	name = models.CharField(null=True,max_length=100)
+	
+
+
+
+
