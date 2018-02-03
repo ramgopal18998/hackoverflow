@@ -1,80 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <title>Register</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-<body>
+{% extends 'base.html' %}
+
+{%block body%}
 
 <div class="container">
-  <h2>Horizontal form</h2>
-  <form class="form-horizontal" method="POST" enctype="multipart/form-data">
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="first_name">First Name:</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="first_name" placeholder="Enter first name" name="first_name">
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="last_name">Last Name:</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="last_name" placeholder="Enter last name" name="last_name">
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="email">Email:</label>
-      <div class="col-sm-10">
-        <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="mobile">mobile:</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="mobile" placeholder="Enter mobile" name="mobile">
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="address">address:</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="address" placeholder="Enter address" name="address">
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="city">city:</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="city" placeholder="Enter city" name="city">
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="pincode">pincode:</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" id="pincode" placeholder="Enter pincode" name="pincode">
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="password">Password:</label>
-      <div class="col-sm-10">          
-        <input type="password" class="form-control" id="password" placeholder="Enter password" name="password">
-      </div>
-    </div>
-    <div class="form-group">
-      <label class="control-label col-sm-2" for="image">Picture:</label>
-      <div class="col-sm-10">          
-        <input type="file" class="form-control" id="image" name="image">
-      </div>
-    </div>
+    <div class="card card-container"  id="register">
+      <h3> Register</h3>
+      <form name="myform" class="form-signin" action="#" method="post" onsubmit="return validateForm()">
+        <span id="reauth-email" class="reauth-email"></span>
 
-    <div class="form-group">        
-      <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-default">Submit</button>
-      </div>
-    </div>
-  </form>
-</div>
+        <input type="text" class="form-control" name="first_name" id="firstname" placeholder="First Name" required autofocus>
+        <input type="text" class="form-control" name="last_name" id="lastname" placeholder="Last Name"  autofocus>
+        <input type="text" class="form-control" name="mobile" id="mobile" placeholder="Mobile No" required  >
+        <input type="text" class="form-control" name="address" id="address" placeholder="Address" required autofocus>
+        <input type="text" class="form-control" name="city" id="city" placeholder="City" required autofocus>
+        <input type="text" class="form-control" name="pincode" id="pincode" placeholder="Pincode" required autofocus>
+        <h6><b>&nbsp; &nbsp; Upload Profile Photo</b></h6>
+        <input type="file" class="form-control" name="image" id="upload" placeholder="Upload Photo" required  />
+        <br>
+        <input type="email" id="inputEmail" name="email" class="form-control" placeholder="Email address" required autofocus>
+        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+        <input type="password" id="confirmPassword" name="password2" class="form-control" placeholder="confirmPassword" required>
+        <div id="remember" class="checkbox">
 
-</body>
-</html>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block btn-signin"  type="submit" value="Submit">Register</button>
+      </form><!-- /form -->
+
+    </div><!-- /card-container -->
+  </div>
+
+  <br>
+  <br>
+  <script type="text/javascript">
+  function validateForm() {
+    var x = document.forms["myform"]["mobile"].value;
+    if(x.length!=10)
+    {
+      swal("Enter a valid Mobile No.");
+      return false;
+    }
+    var y=document.forms["myform"]["password"].value;
+    var z=document.forms["myform"]["password2"].value;
+    if(y!=z){
+      swal("Password Doesn't Match");
+      return false;
+
+    }
+
+  }
+</script>
+  {% endblock %}
