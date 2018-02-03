@@ -10,4 +10,6 @@ urlpatterns = [
     url(r'^questions/$',views.faq,name='faq'),
     url(r'^questions/like$',views.like,name='like'),
     url(r'^questions/dislike$',views.dislike,name='dislike'),
+    url(r'^news$',views.news,name='news'),
+
 ]

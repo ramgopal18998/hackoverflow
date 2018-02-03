@@ -1,0 +1,96 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<script src='https://code.responsivevoice.org/responsivevoice.js'></script>
+	<title>News</title>
+	<style>
+p a:nth-child(1) {
+    color:green;
+     pointer-events: none;
+   cursor: default;
+}
+span a:nth-child(1) {
+    color:black;
+     pointer-events: none;
+   cursor: default;
+}
+li{
+list-style-type: none;
+}
+#mihir{
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+}
+img{ border-radius: 3%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+padding-top:4px;
+}
+
+.mayank{
+ border-radius: 50%;
+ background-color: green;
+ color:white;
+ border-color: green;
+ height:35px;
+ width:35px;
+}
+.mayank:hover{
+border-radius: 50%;
+ 
+   box-shadow: 1px 1px 5px grey;
+
+ color:white;
+ width:35px;
+ height:35px;
+}
+</style>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<br>
+	<br>
+	<br>
+<center>	<h3><b>Recent News</b></h3></center>
+	<div class="container" >
+{% for x in news %}
+	<div class="row" id="mihir">
+
+<div class="col-sm-12">
+<input class="mayank" onclick='responsiveVoice.speak( "{{ x.hindi }}" ,"Hindi Female");' type='button' value="&#128264"></input>
+
+<li style="float:none;">
+{{x.html|safe}}
+
+<br>
+</div>
+
+</div>
+<br><br>
+{% endfor %}
+</div>
+
+
+<div class="container" >
+{% for x in videos %}
+	<div class="row" id="mihir">
+
+<div class="col-sm-12">
+
+<li style="float:none;">
+{{x|safe}}
+<br>
+</div>
+
+</div>
+<br><br>
+{% endfor %}
+</div>
+
+
+
+</body>
+</html>

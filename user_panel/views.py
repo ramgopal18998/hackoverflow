@@ -14,6 +14,7 @@ import urllib3
 from urllib.request import urlopen 
 import urllib
 import json
+from products.models import CategoryData,SubCategoryData
 from django.contrib.auth import authenticate, login
 import codecs
 from weather import get_weather,getCity
@@ -26,6 +27,12 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes, force_text
+import bs4
+from urllib.request import urlopen as uReq
+from bs4 import BeautifulSoup as soup
+import time
+
+
 
 
 def translator(request):
@@ -261,10 +268,62 @@ def dislike(request):
 			return HttpResponse("success")
 
 
+
 def home(request):
-	return render(request,'index.html')
+	cat = CategoryData.objects.all()
+	subcat = SubCategoryData.objects.all()
+	return render(request,'index.html',{'cat':cat,'subcat':subcat})
+
+def news(request):
+	my_url = 'http://www.news18.com/newstopics/agriculture.html'
+	uClient = uReq(my_url)
+
+	page_html = uClient.read()
+	uClient.close()
+	page_soup = soup(page_html,"html.parser")
 
 
+	containers = page_soup.findAll("li",{"style":"float:none;"})
 
+	news = []
+	for container in containers:
+		news.append(str(container))
+	
+	return render(request,'user_panel/news.html',{"news":news})
+    
 
+import re
 
+def cleanhtml(raw_html):
+  cleanr = re.compile('<.*?>')
+  cleantext = re.sub(cleanr, '', raw_html)
+  return cleantext
+
+def news(request):
+	my_url = 'http://www.news18.com/newstopics/agriculture.html'
+	uClient = uReq(my_url)
+
+	page_html = uClient.read()
+	uClient.close()
+	page_soup = soup(page_html,"html.parser")
+	containers = page_soup.findAll("li",{"style":"float:none;"})
+	news = []
+	for container in containers:
+		d = {'html':"",'hindi':""}
+		d['html'] = str(container)
+		d['hindi'] = get_in_hindi(cleanhtml(str(container)).replace('\n', ' ').replace('\r', ''))
+		news.append(d)
+	my_url = 'http://www.news18.com/newstopics/agriculture/videos/'
+	uClient = uReq(my_url)
+	page_html = uClient.read()
+	uClient.close()
+	page_soup = soup(page_html,"html.parser")
+	containers = page_soup.findAll("li",{"style":"float:none;"})
+	videos = []
+	i = 0
+	for container in containers:
+	    videos.append(container)
+	    i = i+1
+	    if i>5 :
+	    	break	
+	return render(request,'user_panel/news.html',{"news":news,"videos":videos})
