@@ -1,29 +1,43 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Frequently Asked Questions</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
-<body>
-<div class="container">
-	<h2>Frequently Asked Questions!!</h2>
-	<br><br>
-	{% for q in questions %}
-	{% if q.answer == '0' %}
+{% extends 'base.html' %}
+{% block body %}
 
-	<p><strong>{{q.user.username}}:-  </strong>  {{q.question}}</p>
-	<br><br>
-	{% else %}
-	<p><strong>{{q.user.username}}:-  </strong>  {{q.question}}</p>
-	<p><strong>Admin:  </strong>  {{q.answer}}</p>
-	<button class="btn btn-success glyphicon glyphicon-thumbs-up" onclick="up('{{q.id}}')"><span style="padding: 4px;">{{q.useful}}</span></button>
-	<button class="glyphicon glyphicon-thumbs-down btn btn-danger" onclick="down('{{q.id}}')" ><span style="padding: 4px;">{{q.not_useful}}</span></button>
-	{% endif %}
+	<div class="panel-group">
+		<div class="panel panel-default">
 
-	{% endfor %}
-	<form class="form-horizontal" id="question">
+			<div class="panel-heading"><h3><b>Discussion Forum</b></h3></div>
+			{% for q in questions %}
+			<div class="panel-body">
+				<div class="media">
+					<div class="media-left">
+						<img src="img/user.png" class="media-object" style="width:60px">
+					</div>
+					<div class="media-body">
+						<h4 class="media-heading">{{q.user.username}}</h4>
+						<p>
+							<div class="row">
+								<div class="col-sm-4">
+									<a style="color:#2577b1;" href="{% url 'user_panel:question_detail' q.id %}"> {{q.question}}</a><br>
+									{{q.user.email}}
+								</div>
+								<div class="col-sm-4">
+									<b>Likes:</b>&nbsp;{{q.useful}}&nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>
+									<b>Likes:</b>&nbsp;{{q.not_useful}}&nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>
+								</div>
+								<div class="col-sm-4">
+									<div style="color:#2577b1;"> {{q.created}}</div>
+								</div>
+
+							</div>
+
+
+
+						</p>
+					</div>
+				</div>
+			</div>
+			<hr>
+			{% endfor %}
+			<form class="form-horizontal" id="question">
     <div class="form-group">
       <label class="control-label col-sm-2" for="query">Your Query:</label>
       <div class="col-sm-10">
@@ -36,10 +50,8 @@
     </div>
   </form>
 
-</div>
-
-<script>
-	$('#question').submit(function(e){
+  <script>
+  	$('#question').submit(function(e){
 		e.preventDefault();
 		data = {'query': $('#query').val()};
 		console.log(data)
@@ -63,36 +75,114 @@
 	});
 		}
 	});
-</script>
-<script>
-	function up(id)
-	{
-		data={'id':id};
-		console.log("up")
-		$.ajax({
-			type: "POST",
-			url: "/user_panel/questions/like",
-			data:data,
-			success: function(data){
-				alert(data);
-			}
+  </script>
+			<!-- <div class="panel-body">
+				<div class="media">
+					<div class="media-left">
+						<img src="img/user.png" class="media-object" style="width:60px">
+					</div>
+					<div class="media-body">
+						<h4 class="media-heading">Mihir </h4>
+						<p>
+							<div class="row">
+								<div class="col-sm-4">
+									<a style="color:#2577b1;"> Refund not yet initiated by Flipkart</a><br>
+									asifrahmanshaik@yahoo.com Nov 16, 2017
+								</div>
+								<div class="col-sm-4">
+									<b>Likes:</b>&nbsp;400 &nbsp;<span class="glyphicon glyphicon-thumbs-up"></span><br>
+									<b>Dislikes:</b>&nbsp;4 &nbsp;<span class="glyphicon glyphicon-thumbs-down"></span>
 
-	});
-	}
+								</div>
+								<br>
 
-	function down(id)
-	{
-		data={'id':id};
-		$.ajax({
-			type: "POST",
-			url: "/user_panel/questions/dislike",
-			data:data,
-			success: function(data){
-				alert(data);
-			}
+								<div class="col-sm-4">
+									<div style="color:#2577b1;">14th November 2017</div>
+								</div>
 
-	});
-	}
-</script>
-</body>
-</html>
+							</div>
+
+
+
+						</p>
+					</div>
+				</div>
+			</div> -->
+		</div>
+
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+
+		
+		</footer>
+		<script type="text/javascript">
+			$(function () {
+				$(document).scroll(function () {
+					var $nav = $(".navbar-fixed-top");
+					$nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+				});
+			});
+		</script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+
+				$('#itemslider').carousel({ interval: 3000 });
+
+				$('.carousel-showmanymoveone .item').each(function(){
+					var itemToClone = $(this);
+
+					for (var i=1;i<6;i++) {
+						itemToClone = itemToClone.next();
+
+						if (!itemToClone.length) {
+							itemToClone = $(this).siblings(':first');
+						}
+
+						itemToClone.children(':first-child').clone()
+						.addClass("cloneditem-"+(i))
+						.appendTo($(this));
+					}
+				});
+			});
+
+		</script>
+
+
+	{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

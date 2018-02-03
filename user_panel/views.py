@@ -327,3 +327,8 @@ def news(request):
 	    if i>5 :
 	    	break	
 	return render(request,'user_panel/news.html',{"news":news,"videos":videos})
+
+
+def question_detail(request,p_id):
+    question = Questions.objects.get(id=p_id)
+    return render(request,'user_panel/detail.html',{'question':question})

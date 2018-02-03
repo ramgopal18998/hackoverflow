@@ -25,12 +25,15 @@ def add_to_cart(request):
 
 	# else add product to cart
 	cart = Cart()
-	
 	cart.customer_id = customer.id 
 	cart.product_id = p_id
 	cart.save()
+	product = ProductData.objects.get(id=cart.product.id)
 	print("Added to cart")
-	return HttpResponse("success")
+
+	queryset = serializers.serialize('json',[product])
+	return HttpResponse(queryset,content_type='application/json')
+	
 
 def mycart(request):
 	if request.method=="GET":
@@ -92,3 +95,9 @@ def search(request):
 	print(len(products)," products obtained")
 	return HttpResponse(queryset,content_type='application/json')
 	
+def subcategory_BUY(request,sc_id):
+	products = ProductData.objects.filter(sub_category_name__id=sc_id)
+	print(len(products) ," found")
+	customer = Customer.objects.get(user_id=request.user.id)
+	cart = Cart.objects.filter(customer_id=customer.id,status=0)
+	return render(request,'products/product_subcategories.html',{'cart':cart,'num':len(cart) ,'products':products})

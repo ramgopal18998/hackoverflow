@@ -1,7 +1,7 @@
 from django.conf.urls import url
 
 from . import views
-
+app_name='user_panel'
 urlpatterns = [
     url(r'^$', views.translator, name='translator'),
     url(r'^chatbot/$',views.chatbot,name='chatbot'),
@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^questions/like$',views.like,name='like'),
     url(r'^questions/dislike$',views.dislike,name='dislike'),
     url(r'^news$',views.news,name='news'),
+    url(r'^(?P<p_id>[0-9]+)question/detail$',views.question_detail,name='question_detail'),
 
 ]

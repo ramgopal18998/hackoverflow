@@ -1526,7 +1526,7 @@ Main Components
                   <li class="dropdown-header">{{c.name}}</li>
                   {% for sc in subcat %}
                   {%if sc.category.id == c.id  %}
-                  <li><a href="#">{{sc.name}}</a></li>
+                  <li><a href="{% url 'products:subcategory_BUY' sc.id %}">{{sc.name}}</a></li>
                   {%endif%}
                   {% endfor %}
                                
@@ -1543,6 +1543,7 @@ Main Components
             <div class="input-group">
               <input type="text" class="form-control" id="search_box" placeholder="Search" 
               onkeyup="search_products(this)" autocomplete="off">
+
               <div id="results">
               </div>
               <div class="input-group-btn">
@@ -1550,6 +1551,11 @@ Main Components
               </div>
             </div>
           </form>
+          <li> <div id="google_translate_element" style="padding-top: 7px;"></div><script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,hi,fr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
+}
+</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
@@ -1701,7 +1707,7 @@ Main Components
               console.log(data);
               for (key in data) {
                 var name = data[key]['fields']['name'].substring(0,20);
-                var image = data[key]['fields']['image'].substring(0,20);
+                var image = data[key]['fields']['image'];
                 var brand = '<strong>'+data[key]['fields']['brand']+'</strong>';
                 var img = '<img height="40px" class="img-responsive" style=" padding-top:1px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" width="40px" src="http://127.0.0.1:8000/media/'+ image +'"/>';
                 var res =  '<div class="container" style="border:2px solid black;background-color:white;color:black;height:auto;width:auto;margin-top:2px;"><div class="row" ><div class="col-sm-4">'+ img +'</div><div class="col-sm-8"><b style="color:red;font-weight:bold;">Name</b>&nbsp;<b> ' +name+ '</b><br><b style="color:red;font-weight:bold;">Brand </b>'+ brand +'</b></div></div></div>';

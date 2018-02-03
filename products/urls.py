@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^checkout/$',views.checkout,name='checkout'),
     url(r'^buynow/$',views.buynow,name='buynow'),
     url(r'^search/$',views.search,name='search'),
+    url(r'^subcategory/(?P<sc_id>[0-9]+)$',views.subcategory_BUY,name='subcategory_BUY'),
 ]
