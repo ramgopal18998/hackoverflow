@@ -80,7 +80,9 @@ def buynow(request):
 	order.save()
 	print("Order saved...")
 	return HttpResponse("success")
-	
+
+
+
 
 
 

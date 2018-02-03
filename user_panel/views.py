@@ -42,7 +42,8 @@ def translator(request):
 def chatbot(request):
 	if request.method == "GET":
 		print(str(request.user.email))
-		customer = Customer.objects.get(email=str(request.user.email))
+		user = User.objects.get(id=request.user.id)
+		customer = Customer.objects.get(user_id=user.id)
 		return render(request,'user_panel/chatbot.html',{'customer':customer})
 	else:
 		print("post request wikipeida")
@@ -258,6 +259,10 @@ def dislike(request):
 			likes.name = request.user.username
 			likes.save()
 			return HttpResponse("success")
+
+
+def home(request):
+	return render(request,'index.html')
 
 
 
