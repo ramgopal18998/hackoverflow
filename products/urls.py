@@ -10,5 +10,5 @@ urlpatterns = [
     url(r'^(?P<p_id>[0-9]+)/view$',views.detail_view,name='detail_view'),
     url(r'^checkout/$',views.checkout,name='checkout'),
     url(r'^buynow/$',views.buynow,name='buynow'),
-
+    url(r'^search/$',views.search,name='search'),
 ]

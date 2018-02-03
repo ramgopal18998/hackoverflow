@@ -5,7 +5,7 @@ from user_panel.models import Customer
 from django.http import HttpResponse, HttpResponseRedirect,JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from myorders.models import Order
-
+from django.core import serializers
 
 def index(request):
 	products = ProductData.objects.all()
@@ -82,7 +82,13 @@ def buynow(request):
 	return HttpResponse("success")
 
 
-
-
-
-
+@csrf_exempt
+def search(request):
+	query = request.POST['query']
+	print(query)
+	products = ProductData.objects.filter(name__icontains=query)
+	products = products[:6]
+	queryset = serializers.serialize('json',products)
+	print(len(products)," products obtained")
+	return HttpResponse(queryset,content_type='application/json')
+	
