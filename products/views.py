@@ -51,6 +51,7 @@ def delete_from_cart(request,cart_id):
 
 def detail_view(request,p_id):
 	print(p_id)
+	product = ProductData.objects.get()
 	return render(request,"products/detailed_product.html")
 
 
