@@ -1,0 +1,194 @@
+{% include "base.html" %}
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<title></title>
+</head>
+<script>
+function myFunction(a) {
+	console.log(a);
+var x =  document.getElementById("text").value;  
+
+var y = x*a;
+document.getElementById("demo").innerHTML = y + "kg seed" ;
+}
+</script>
+<script>
+function myFunction(a) {
+	console.log(a);
+var x =  document.getElementById("text").value;  
+
+var y = x*a;
+document.getElementById("demo").innerHTML = y + "kg seed" ;
+}
+</script>
+<script>
+function myFunction2(a) {
+	console.log(a);
+var x =  document.getElementById("text3").value;  
+
+var y = x*a;
+document.getElementById("demo3").innerHTML = y + "kg seed" ;
+}
+</script>
+<script>
+function myFunction3(a) {
+	console.log(a);
+var x =  document.getElementById("text4").value;  
+
+var y = x*a;
+document.getElementById("demo4").innerHTML = y + "kg seed" ;
+}
+</script>
+<script>
+function myFunction1() {
+
+var x =  document.getElementById("text1").value;  
+
+var y = x*2.471;
+document.getElementById("demo2").innerHTML = y + "Acre";}
+</script>
+<body style="overflow-x: hidden;">
+	<br>
+	<br>
+	<div class="row">
+		<div class="col-sm-2">
+		</div>
+		<div class="col-sm-8">
+	<b><u><h3>Rice</h3></u></b>
+	<br>
+<table class="grid listing">
+<colgroup><col width="186"></col> <col width="181"></col> <col width="98"></col> </colgroup> 
+<tbody>
+<tr>
+<td class="xl68" height="20" width="186"><strong>Particulars</strong></td>
+<td class="xl69" width="181"><strong>Conventional Method</strong></td>
+<td class="xl69" width="98"><strong>SRI</strong></td>
+</tr>
+<tr>
+<td class="xl66" height="20" width="186">Spacing</td>
+<td class="xl65" width="181">15x10 cm</td>
+<td class="xl65" width="98">25x25 cm</td>
+</tr>
+<tr>
+<td class="xl66" height="20" width="186">No of   plants per sq.m</td>
+<td class="xl65" width="181">66</td>
+<td class="xl65" width="98">16</td>
+</tr>
+<tr>
+<td class="xl66" height="20" width="186">No. of   seedlings per hill</td>
+<td class="xl65" width="181">3</td>
+<td class="xl65" width="98">1</td>
+</tr>
+<tr>
+<td class="xl66" height="20" width="186">No. of    plants per acre</td>
+<td class="xl65" width="181">792000</td>
+<td class="xl65" width="98">64000</td>
+</tr>
+<tr>
+<td class="xl66" height="20" width="186">Seed   requirement per acre</td>
+<td class="xl65" width="181">20 kg</td>
+<td  class="xl65" width="98"><b id="mihir1">2</b>&nbsp;kg</td>
+</tr>
+
+</tbody>
+
+</table>
+<br>
+	Enter Acre of land: <input class="text" id="text" name="text">
+<button onclick="myFunction($('#mihir1').html())" >Click me</button>
+
+
+
+<p id="demo"></p>
+</div>
+<div class="col-sm-2">
+	<br>
+	<br>
+	Convert Hectare to Acre:
+<input class="text" id="text1" name="text">
+<button onclick="myFunction1()" >Click me</button>
+
+
+
+<p id="demo2"></p>
+<br>
+	</div>
+</div>
+<br>
+
+
+<br>
+
+
+<div class="container">
+<div class="row" style="
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+	<div class="col-sm-2">
+	</div>
+	<div class="col-sm-8">
+			<b><h3><u>wheat</u></h3></b>
+	<br>
+Avg Sead Req per Acre <b id="wheat">40</b>&nbsp; kg
+<br>
+<br>
+	Enter Acre of land: <input class="text" id="text3" name="text3">
+<button onclick="myFunction2($('#wheat').html())" >Click me</button>
+
+<p id="demo3"></p>
+	</div>
+<br>
+
+<div class="col-sm-2">
+	</div>
+	<br>
+<br>
+<br>
+	</div>
+	
+</div>
+
+<br>
+
+<div class="container">
+
+
+
+<div class="row" style="
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+		
+	<br>
+	<div class="col-sm-2">
+	</div>
+	<div class="col-sm-8">
+			<b><h3><u>Maize</u></h3></b>
+
+
+Avg Seed Req per Acre <b id="maize">10</b>&nbsp; kg
+<br>
+<br>
+	Enter Acre of land: <input class="text" id="text4" name="text4">
+<button onclick="myFunction3($('#maize').html())" >Click me</button>
+
+	</div>
+
+
+<p id="demo4"></p>
+<br><br><br><br>
+<br>
+<br>
+	</div>
+<br>
+
+<div class="col-sm-2">
+	</div>
+	<br>
+	<br>
+	</div>
+
+
+</body>
+</html>

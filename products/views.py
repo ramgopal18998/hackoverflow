@@ -90,7 +90,12 @@ def search(request):
 	query = request.POST['query']
 	print(query)
 	products = ProductData.objects.filter(name__icontains=query)
+	if not len(products):
+		products = ProductData.objects.filter(sub_category_name__name__icontains=query)
+		if not len(products):
+			products = ProductData.objects.filter(category__name__icontains=query)
 	products = products[:6]
+
 	queryset = serializers.serialize('json',products)
 	print(len(products)," products obtained")
 	return HttpResponse(queryset,content_type='application/json')

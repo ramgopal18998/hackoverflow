@@ -12,5 +12,5 @@ urlpatterns = [
     url(r'^questions/dislike$',views.dislike,name='dislike'),
     url(r'^news$',views.news,name='news'),
     url(r'^(?P<p_id>[0-9]+)question/detail$',views.question_detail,name='question_detail'),
-
+    url(r'^calculator$',views.calculator,name='calculator'),
 ]

@@ -11,24 +11,40 @@
 /* CSS Document */
 
 /* ---------- GENERAL ---------- */
-.mihir{
- border-radius: 50%;
- background-color: green;
- color:white;
- border-color: green;
- height:35px;
- width:35px;
-}
-.mihir:hover{
-border-radius: 50%;
- 
-   box-shadow: 1px 1px 5px grey;
+.speech {border: 1px solid #DDD; width: 300px; padding: 0; margin: 0}
+  .speech input {border: 0; width: 240px; display: inline-block; height: 30px;}
+  .speech img {float: right; width: 40px }
 
- color:white;
- width:35px;
- height:35px;
-}
+  .mihir{
+		border-radius: 2px green solid;
+		background-color: green;
+		color:white;
+		border-color: green;
+		height:35px;
+		width:150px;
+		margin-bottom:30px;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
+		margin-left:50%;
+	}
+	.mihir:hover{
+		border-radius: 2px green solid;
+		background-color: white;
+		color:green;
+		border-color: green;
+		height:35px;
+		width:150px;
+		margin-bottom:30px;
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+		margin-left:50%;
+	}
+
+
+
+
+p { margin-top: -40p; 
+		color:green;}
 
 
 body {
@@ -202,8 +218,7 @@ p { margin: 0; }
 
 </head>
 <body>
-	<input class="mihir" onclick='responsiveVoice.speak( "बीज एक सुरक्षात्मक" ,"Hindi Female");' type='button' value="&#128264
-"></input>
+	
 	<script src="http://localhost:4000/socket.io/socket.io.js"></script>
 
 	<div id="live-chat">
@@ -245,13 +260,14 @@ p { margin: 0; }
 
 			
 
-			<form>
+			<form id="myForm">
 
 				<fieldset>
 					
 					<input id="message" type="text" placeholder="Type your message…" autofocus>
+					<img onclick="startDictation()" src="https://d2llddowri9p3s.cloudfront.net/media/catalog/product/cache/18/image/850x680/9df78eab33525d08d6e5fb8d27136e95/s/t/streammic_c_2.png" style="height: 30px;width: 30px;float:right; " />
 					<input type="hidden">
-					<input type="checkbox"> Video
+					
 				</fieldset>
 
 			</form>
@@ -281,22 +297,24 @@ p { margin: 0; }
 }) ();
 	</script>
 
+	
 	<script type="text/javascript">
 
 		var host = 'localhost';
-   	    var nodejs_port = '4000';
-        var socket = io(host + ':' + nodejs_port);
+		var nodejs_port = '4000';
+		var socket = io(host + ':' + nodejs_port);
 
 
 		$('form').submit(function(){
+			console.log("submit..");
 			var query = $('#message');
 
 			var time = $('<span class="chat-time"></span>').append(formatAMPM(new Date()));
 			var username = $('<h5></h5>').append(String( "{{customer.F}}" ))
 			var content = $('<p></p>').append(query.val().trim());
-			var image = $('<img style="margin-left:-55px;border-radius:50%" src="{{customer.image.url}}"  width="32" height="32">');
+			var image = $('<img style="margin-left:-55px;border-radius:50%;" src="{{customer.image.url}}"  width="32" height="32">');
 
-			var chatMessageContent = $('<div class="chat-message-content clearfix">').append(image,time,username,content,"<hr><br>");
+			var chatMessageContent = $('<div class="chat-message-content clearfix;" style="color:red;">').append(image,time,username,content,"<hr><br>");
 			$('.chat-history').append(chatMessageContent);
 			
 
@@ -322,11 +340,11 @@ p { margin: 0; }
 				video.attr("src",function(){
 					return "https://www.youtube.com/embed/"+ youtube_parser(result.url);
 
-			function youtube_parser(url){
-			    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
-			    var match = url.match(regExp);
-			    return (match&&match[7].length==11)? match[7] : false;
-			}
+					function youtube_parser(url){
+						var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+						var match = url.match(regExp);
+						return (match&&match[7].length==11)? match[7] : false;
+					}
 				});
 
 
@@ -348,16 +366,21 @@ p { margin: 0; }
 				video.attr("src",function(){
 					return "https://www.youtube.com/embed/"+ youtube_parser(result.url);
 
-			function youtube_parser(url){
-			    var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
-			    var match = url.match(regExp);
-			    return (match&&match[7].length==11)? match[7] : false;
-			}
+					function youtube_parser(url){
+						var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+						var match = url.match(regExp);
+						return (match&&match[7].length==11)? match[7] : false;
+					}
 				});
 
-				var voice = $('<input class="mihir" type="button" value="&#128264"></input>');
+				var voice = $('<input class="mihir" type="button" value="Read the Description !"></input>');
 				voice.click(function(){
-					responsiveVoice.speak( hindi ,"Hindi Female")
+					if(responsiveVoice.isPlaying()) {
+						responsiveVoice.pause();
+					}
+					else{
+						responsiveVoice.speak( hindi ,"Hindi Female");
+					}
 				});
 				var chatMessageContent = $('<div class="chat-message-content clearfix">').append(image,time,username,content,"<hr><br>");
 				$('.chat-history').append(chatMessageContent,voice,video);
@@ -370,10 +393,10 @@ p { margin: 0; }
 
 		$('.chat-time').text(formatAMPM(new Date()));
 		function formatAMPM(date) {
-		  var hours = date.getHours();
-		  var minutes = date.getMinutes();
-		  var ampm = hours >= 12 ? 'pm' : 'am';
-		  hours = hours % 12;
+			var hours = date.getHours();
+			var minutes = date.getMinutes();
+			var ampm = hours >= 12 ? 'pm' : 'am';
+			hours = hours % 12;
 		  hours = hours ? hours : 12; // the hour '0' should be '12'
 		  minutes = minutes < 10 ? '0'+minutes : minutes;
 		  var strTime = hours + ':' + minutes + ' ' + ampm;
@@ -381,9 +404,53 @@ p { margin: 0; }
 		}
 
 	</script>
-
 	<script>
-		
-	</script>
+  function startDictation() {
+
+    if (window.hasOwnProperty('webkitSpeechRecognition')) {
+
+      var recognition = new webkitSpeechRecognition();
+
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.lang = "en-US";
+      recognition.start();
+
+      recognition.onresult = function(e) {
+        document.getElementById('message').value
+                                 = e.results[0][0].transcript;
+        recognition.stop();
+        
+			console.log("submit..");
+			var query = $('#message');
+
+			var time = $('<span class="chat-time"></span>').append(formatAMPM(new Date()));
+			var username = $('<h5></h5>').append(String( "{{customer.F}}" ))
+			var content = $('<p></p>').append(query.val().trim());
+			var image = $('<img style="margin-left:-55px;border-radius:50%;" src="{{customer.image.url}}"  width="32" height="32">');
+
+			var chatMessageContent = $('<div class="chat-message-content clearfix;" style="color:red;">').append(image,time,username,content,"<hr><br>");
+			$('.chat-history').append(chatMessageContent);
+			
+
+			if(query.val().trim() !== "" ){
+				queryObject = { 'query' :query.val().trim() };
+				socket.emit('wikisearch',queryObject);
+				return false;
+			} 
+			
+			
+      };
+
+      recognition.onerror = function(e) {
+        recognition.stop();
+
+      }
+
+    }
+  }
+</script>
+
 </body>
 </html>

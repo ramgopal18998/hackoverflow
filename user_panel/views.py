@@ -43,6 +43,8 @@ def translator(request):
 	text = get_in_hindi(text)
 	return render(request,'user_panel/translate.html',{ "text":text })
 
+def calculator(request):
+	return render(request,'user_panel/calculator.html')
 
 
 @csrf_exempt

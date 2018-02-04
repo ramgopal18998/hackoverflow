@@ -1477,6 +1477,11 @@ Main Components
     color: rgb(12, 97, 33);
 }
 
+  .speech {border: 1px solid #DDD; width: 300px; padding: 0; margin: 0}
+  .speech input {border: 0; width: 240px; display: inline-block; height: 30px;}
+  .speech img {float: right; width: 40px }
+
+
 </style>
 <script type="text/javascript">
   function validateForm() {
@@ -1538,11 +1543,13 @@ Main Components
             </ul>       
           </li>
 
-          <li><a href="#">Store locator</a></li>
-          <form class="navbar-form navbar-left" action="#">
+         
+          <form class="navbar-form navbar-left" action="#" id="myForm">
             <div class="input-group">
-              <input type="text" class="form-control" id="search_box" placeholder="Search" 
+
+              <input type="text" class="form-control" id="search_box" placeholder="Search" style="width: 80%;" 
               onkeyup="search_products(this)" autocomplete="off">
+                 <img onclick="startDictation()" src="https://d2llddowri9p3s.cloudfront.net/media/catalog/product/cache/18/image/850x680/9df78eab33525d08d6e5fb8d27136e95/s/t/streammic_c_2.png" style="height: 30px;width: 30px;float:right; " />
 
               <div id="results">
               </div>
@@ -1551,6 +1558,7 @@ Main Components
               </div>
             </div>
           </form>
+
           <li> <div id="google_translate_element" style="padding-top: 7px;"></div><script type="text/javascript">
       function googleTranslateElementInit() {
         new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'en,hi,fr', layout: google.translate.TranslateElement.InlineLayout.SIMPLE}, 'google_translate_element');
@@ -1581,6 +1589,7 @@ Main Components
 <br>
   {% block body %}
 {% endblock %}
+<!--
 <footer>
     <div class="footer" id="footer">
       <div class="container">
@@ -1645,7 +1654,7 @@ Main Components
       <!--/.container--> 
     </div>
     <!--/.footer-->
-
+    <!--
     <div class="footer-bottom">
       <div class="container">
         <p class="pull-left"> Copyright © HACKOVER_FLOW E-commerce 2018. All right reserved. </p>
@@ -1659,6 +1668,7 @@ Main Components
         </div>
       </div>
     </div>
+  -->
     <!--/.footer-bottom--> 
   </footer>
   <script type="text/javascript">
@@ -1696,9 +1706,9 @@ Main Components
 
     function search_products(input){
         $('#results').html("");
-
+        console.log("post..");
         if($('#search_box').val()!=""){
-          $('#results').html("");
+          
           $.ajax({
             type: "POST",
             url: '/products/search/',
@@ -1726,6 +1736,38 @@ Main Components
           $('#results').html("");
         }  
     }
+  </script>
+  <script type="text/javascript">
+    
+  function startDictation() {
+    console.log("post");
+    if (window.hasOwnProperty('webkitSpeechRecognition')) {
+
+      var recognition = new webkitSpeechRecognition();
+
+      recognition.continuous = false;
+      recognition.interimResults = false;
+
+      recognition.lang = "en-US";
+      recognition.start();
+
+      recognition.onresult = function(e) {
+        document.getElementById('search_box').value
+                                 = e.results[0][0].transcript;
+        recognition.stop();
+      
+        search_products(document.getElementById('search_box'));
+        
+      };
+
+      recognition.onerror = function(e) {
+        recognition.stop();
+      }
+
+    }
+  }
+</script>
+
   </script>
 
 </body>
