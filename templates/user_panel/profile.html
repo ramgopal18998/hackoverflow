@@ -1677,6 +1677,7 @@ Main Components
 	.payments {
 		font-size: 1.5em;	
 	}
+
 </style>
 </head>
 <body>
@@ -1701,7 +1702,7 @@ Main Components
       <li><a href="{% url 'user_panel:calculator' %}">Calculator</a></li>
 			<li><a href="#0">24*7 Chatbot</a></li>
 			<li><a href="/chat">Chatroom</a></li>
-			<li><a href="">Map</a></li>
+			<li><a href="{% url 'user_panel:maps' %}">Map</a></li>
 			<li><a href="{% url 'logout_user' %}">Logout</a></li>
 		</ul>
 	</nav>
@@ -1711,26 +1712,36 @@ Main Components
 	<br><br><br>
 
 	<br><br><br>
-	<div class="col-sm-8">
+	<div class="col-sm-8" >
+    <br>
 		{% for p in orders %}
-		<div class="col-sm-6">
-		<div class="">Bill No-{{p.bill}}</div>
-    <div class="">Order Date-{{p.created}}</div>
-        <div class="">Total - Rs.{{p.grand_total}}</div>
-         <div class="">Total Products- {{p.cart.count}}</div>
+		<div class="col-sm-6" style="
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+    <br>
+		<div class=""><b style="color:red;font-weight: bold;">Bill No-</b>&nbsp;{{p.bill}}</div>
+    <br>
+    <div class=""><b style="color:red;font-weight: bold;">Order Date-</b>&nbsp;{{p.created}}</div>
+    <br>
+        <div class=""><b style="color:red;font-weight: bold;">Total - Rs.</b>&nbsp;{{p.grand_total}}</div>
+        <br>
+         <div class=""><b style="color:red;font-weight: bold;">Total Products- </b>&nbsp;{{p.cart.count}}</div>
+         <br>
          {% if p.status == 0 %}
-         <div class="">Status- Order Placed</div>
+         <div class=""><b style="color:blue;font-weight: bold;">Status- Order Placed</b>&nbsp;</div><br>
          {%endif%}
          {% if p.status == 1 %}
-         <div class="">Status-Order Dispatched</div>
+         <div class=""><b style="color:yellow;font-weight: bold;">Status-Order Dispatched</b>&nbsp;</div><br>
          {%endif%}
          {% if p.status == 2 %}
-         <div class="">Status-Order Delivered</div>
+         <div class=""><b style="color:green;font-weight: bold;">Status-Order Delivered</b>&nbsp;</div>
          {%endif%}
 
-
-         <div><a href="{%url 'myorders:detail' p.bill %}" class="btn btn-primary">Details</a></div>
-         <div><a href="{%url 'myorders:invoice' p.bill %}" class="btn btn-primary">Invoice</a></div>
+<br>
+         <div><a href="{%url 'myorders:detail' p.bill %}" style="
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" class="btn btn-primary">Details</a></div>
+         <br>
+         <div><a style="
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" href="{%url 'myorders:invoice' p.bill %}" class="btn btn-primary">Invoice</a></div>
 
 
     <div class="productprice">
@@ -1748,8 +1759,12 @@ Main Components
 
 {% endfor %}
 </div>
-<div class="col-sm-4">
-	<img src="{{weather_img.image.url}}" style="width: 130px;height: 130px;float: left">
+<br>
+<div class="col-sm-4" >
+  <center><h4>Todays Weather</h4></center>
+	<img src="{{weather_img.image.url}}" style="width: 130px;height: 130px;float: left;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);margin-right:10px;">&nbsp;&nbsp;<br>
+    <br>
 <p id="demo"></p>
 
 
@@ -1758,9 +1773,10 @@ Main Components
 
 	<input type="hidden" name="latitude" id="lat" value="yo">
 	<input type="hidden" name="longitude" id="lon" value="yo">
-	<button type="submit">Get ForeCast</button>
-</form>
+	<button type="submit" class="btn btn-primary" style=" box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);margin-right:5px;">Get ForeCast</button>
 
+</form>
+<br>
 <p>{{weather.temp}}</p>
 <p>{{weather.text}}</p>
 <p>{{weather.date}}</p>

@@ -13,6 +13,7 @@ urlpatterns = [
     url(r'^questions/like$',views.like,name='like'),
     url(r'^questions/dislike$',views.dislike,name='dislike'),
     url(r'^news$',views.news,name='news'),
+    url(r'^maps$',views.maps,name='maps'),
     url(r'^organic$',views.organic,name='organic'),
     url(r'^organic/compost$',views.compost,name='compost'),
     url(r'^organic/manure$',views.manure,name='manure'),

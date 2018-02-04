@@ -10,10 +10,15 @@ p a:nth-child(1) {
      pointer-events: none;
    cursor: default;
 }
+li img:nth-child(2) {
+
+	visibility: hidden;
+}
 span a:nth-child(1) {
     color:black;
      pointer-events: none;
    cursor: default;
+   visibility: hidden;
 }
 li{
 list-style-type: none;
@@ -55,6 +60,16 @@ border-radius: 50%;
 	<br>
 	<br>
 <center>	<h3><b>Recent News</b></h3></center>
+
+<ul class="nav nav-tabs">
+  <li class="active"><a data-toggle="tab" href="#home">News</a></li>
+  <li><a data-toggle="tab" href="#menu1">Videos</a></li>
+
+</ul>
+<br>
+<br>
+<div class="tab-content">
+  <div id="home" class="tab-pane fade in active">
 	<div class="container" >
 {% for x in news %}
 	<div class="row" id="mihir">
@@ -72,7 +87,8 @@ border-radius: 50%;
 <br><br>
 {% endfor %}
 </div>
-
+  </div>
+  <div id="menu1" class="tab-pane fade">
 
 <div class="container" >
 {% for x in videos %}
@@ -89,6 +105,18 @@ border-radius: 50%;
 <br><br>
 {% endfor %}
 </div>
+  </div>
+  
+</div>
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1,0 +1,26 @@
+
+{% block body %}
+	<br><br>
+	<br>	<br>
+	<br>	<br> 
+	<div class="container" style="background-color:#ecf0f1;">
+   <ul class="nav nav-pills">
+    <li class="active"><a data-toggle="pill" href="#home">Mandi</a></li>
+    <li><a data-toggle="pill" href="#menu1">Cold Storage</a></li>
+  </ul>
+  
+  <div class="tab-content">
+    <div id="home" class="tab-pane fade in active">
+      <iframe id="ctl00_ContentPlaceHolder1_Iframe1" src="http://farmer.gov.in/MapView/Markets.html" name="contentPanel1" height="900" scrolling="no" frameBorder="0" marginheight="0px" marginwidth="0px" style="margin: 0;padding:0;border: none;width: 98%; padding-top:0px; margin-left:0px">
+            </iframe>
+    </div>
+    <div id="menu1" class="tab-pane fade">
+      <iframe id="ctl00_ContentPlaceHolder1_Iframe1" src="http://farmer.gov.in/MapView/ColdStorage.html" name="contentPanel1" height="900" scrolling="no" frameBorder="0" marginheight="0px" marginwidth="0px" style="margin: 0;padding:0;border: none;width: 98%; padding-top:0px; margin-left:0px">
+            </iframe>
+    </div>
+    
+  </div>
+</div>
+
+{% endblock %}
+{% include 'base.html' %}

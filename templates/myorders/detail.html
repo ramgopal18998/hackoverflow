@@ -80,20 +80,29 @@
 </style>
 </head>
 <body>
-<h2>Bill No {{order.bill}} </h2><span>placed at {{order.created}}</span>
-<br>
-<h4>Total {{order.grand_total}}</h4>
-<img src="#" onload="myfunction();">
-{% for c in cart %}
-	<img src="{{c.product.image.url}}" class="img-responsive">
-	<button type="submit" class="btn btn-info btn-lg" data-toggle="modal" onclick="modal_fired('{{c.product.id}}','{{c.product.name}}')" data-target="#myModal">Review It</button>
+  <div style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);background-color: #e7e7e7;margin-top:-20px;">
+    <br>
+<h2 class="tab-content">Bill No {{order.bill}} </h2><span>placed at {{order.created}}</span>
+<br><hr>
+<h4><b>Grand Total</b> {{order.grand_total}}</h4>
+<hr></div>
 
-	<p style="">{{c.product.name}}</p>
+{% for c in cart %}
+
+<div class="media" >
+  <div class="media-left" style="margin-left:10px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+   <img src="{{c.product.image.url}}" class="img-responsive">
+  <button type="submit" class="btn btn-primary " data-toggle="modal" onclick="modal_fired('{{c.product.id}}','{{c.product.name}}')" data-target="#myModal" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"">Review It</button>
+
+  </div>
+  <div class="media-body" style="margin-left:10px;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);padding-left:10px;" >
+    <h4 class="media-heading">{{c.product.name}}</h4>
+
 <p>{{c.quantity}}</p>
 <p>{{c.total_price}}</p>
 
 {% if c.rating == '0' %}
-<form class="rating" id='stars'>
+<form class="rating" id='stars' >
   <label>
     <input type="radio" name="stars" value="1" onclick="star(this.value,'{{c.product.id}}')"/>
     <span class="icon">★</span>
@@ -126,14 +135,26 @@
   </label>
 
 </form>
-	
+  
 {% else%}
 <h4>You have rated {{c.product.name}} as {{c.rating}} stars</h4>
+
 <a href="#" ><span class="badge glyphicon glyphicon-star" style="color:yellow;background-color:green;"><span style="padding-left:7px;font-size:17px;color:white;padding-right:4px;">{{c.rating}}</span></span></a><br>
+<br>
 {% endif%}
 
 
-{% endfor %}
+
+
+  </div>
+  <br>
+  <br>
+  {% endfor %}
+  <br>
+</div>
+
+
+	
 
 		<h2>Delivery Tracking</h2>
 		<p>Status: {{delivery.location}}</p>
@@ -160,7 +181,7 @@
     </div>
     <div class="form-group">        
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-primary" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">Submit</button>
       </div>
     </div>
   </form>

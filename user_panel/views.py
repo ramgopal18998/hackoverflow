@@ -113,7 +113,11 @@ def login_user(request):
 
 
 def profile(request):
-	city = 'bilaspur'
+	if not request.user.is_authenticated():
+		return render(request,'login.html')
+	user = User.objects.get(id=request.user.id)
+	customer = Customer.objects.get(user_id=user.id)
+	city = "Raipur"
 	results = get_weather(city)
 	date = results['query']['results']['channel'][0]['item']['condition']['date']
 	temp = pytemperature.f2c(int(results['query']['results']['channel'][0]['item']['condition']['temp']))
@@ -136,7 +140,7 @@ def profile(request):
 
 @csrf_exempt
 def weather_forecast(request):
-	city = 'raigarh'
+	city = 'raipur'
 	print("City detected : ",city)
 	results = get_weather(city)
 	forecast = []
@@ -281,9 +285,15 @@ def dislike(request):
 
 
 def home(request):
+	print("inside home...")
 	cat = CategoryData.objects.all()
 	subcat = SubCategoryData.objects.all()
-	return render(request,'index.html',{'cat':cat,'subcat':subcat})
+	products = ProductData.objects.all()
+	recommended = products[:5]
+	print(len(recommended))
+	topDiscounts = products.order_by('-discount_percentage')[:5]
+	print(len(topDiscounts))
+	return render(request,'index.html',{'cat':cat,'subcat':subcat,'recommended':recommended,'discounts':topDiscounts})
 
 def news(request):
 	my_url = 'http://www.news18.com/newstopics/agriculture.html'
@@ -339,6 +349,8 @@ def news(request):
 	    	break	
 	return render(request,'user_panel/news.html',{"news":news,"videos":videos})
 
+def maps(request):
+	return render(request,'user_panel/maps.html')
 
 def question_detail(request,p_id):
     question = Questions.objects.get(id=p_id)
