@@ -31,6 +31,7 @@ import bs4
 from urllib.request import urlopen as uReq
 from bs4 import BeautifulSoup as soup
 import time
+from cart.models import Cart
 
 
 
@@ -122,7 +123,15 @@ def profile(request):
 	weather['date'] = date
 	weather['temp'] = temp
 	weather['text'] = text
-	return render(request,'user_panel/profile.html',{'weather':weather,'weather_img':weather_img})
+	orders = Order.objects.filter(customer__user_id=request.user.id)
+	yourorder = orders.order_by('-created')
+	customer = Customer.objects.get(user_id=request.user.id)
+	items = Cart.objects.filter(customer_id=customer.id,status=0)
+	total = 0
+	for c in items:
+		total = total + c.total_price
+
+	return render(request,'user_panel/profile.html',{'weather':weather,'weather_img':weather_img,'orders':yourorder,'items':items,'total':total,'customer':customer})
 
 
 @csrf_exempt
@@ -334,3 +343,27 @@ def news(request):
 def question_detail(request,p_id):
     question = Questions.objects.get(id=p_id)
     return render(request,'user_panel/detail.html',{'question':question})
+
+
+def info_portal(request):
+	return render(request,'user_panel/info_portal.html')
+
+def logout_user(request):
+	logout(request)
+	redirect('/login')
+
+
+def organic(request):
+	return render(request,'user_panel/organic.html')
+def compost(request):
+	return render(request,'user_panel/compost.html')
+def manure(request):
+	return render(request,'user_panel/manure.html')
+def marketing(request):
+	return render(request,'user_panel/marketing.html')
+def practices(request):
+	return render(request,'user_panel/practises.html')
+def protection(request):
+	return render(request,'user_panel/protection.html')
+def pst(request):
+	return render(request,'user_panel/pst.html')

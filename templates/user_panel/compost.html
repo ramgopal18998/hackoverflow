@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Hackoverflow</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700" rel="stylesheet">
+	<link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
+	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<style>
+	.navbar-fixed-top.scrolled {
+		background-color: #fff !important;
+		transition: background-color  600ms linear;
+
+
+	}
+	.mega-dropdown {
+		position: static !important;
+	}
+	.mega-dropdown-menu {
+		padding: 20px 0px;
+		width: 100%;
+		box-shadow: none;
+		-webkit-box-shadow: none;
+	}
+	.mega-dropdown-menu > li > ul {
+		padding: 0;
+		margin: 0;
+	}
+	.mega-dropdown-menu > li > ul > li {
+		list-style: none;
+	}
+	.mega-dropdown-menu > li > ul > li > a {
+		display: block;
+		color: #222;
+		padding: 3px 5px;
+	}
+	.mega-dropdown-menu > li ul > li > a:hover,
+	.mega-dropdown-menu > li ul > li > a:focus {
+		text-decoration: none;
+	}
+	.mega-dropdown-menu .dropdown-header {
+		font-size: 18px;
+		color: #ff3546;
+		padding: 5px 60px 5px 5px;
+		line-height: 30px;
+	}
+	.full {
+		width: 100%;	
+	}
+	.gap {
+		height: 30px;
+		width: 100%;
+		clear: both;
+		display: block;
+	}
+	.footer {
+		background: #e7e7e7;
+		height: auto;
+		padding-bottom: 30px;
+		position: relative;
+		width: 100%;
+		border-bottom: 1px solid #CCCCCC;
+		border-top: 1px solid #DDDDDD;
+	}
+	.footer p {
+		margin: 0;
+	}
+	.footer img {
+		max-width: 100%;
+	}
+	.footer h3 {
+		border-bottom: 1px solid #BAC1C8;
+		color: #54697E;
+		font-size: 18px;
+		font-weight: 600;
+		line-height: 27px;
+		padding: 40px 0 10px;
+		text-transform: uppercase;
+	}
+	.footer ul {
+		font-size: 13px;
+		list-style-type: none;
+		margin-left: 0;
+		padding-left: 0;
+		margin-top: 15px;
+		color: #7F8C8D;
+	}
+	.footer ul li a {
+		padding: 0 0 5px 0;
+		display: block;
+	}
+	.footer a {
+		color: #78828D
+	}
+	.supportLi h4 {
+		font-size: 20px;
+		font-weight: lighter;
+		line-height: normal;
+		margin-bottom: 0 !important;
+		padding-bottom: 0;
+	}
+	.newsletter-box input#appendedInputButton {
+		background: #FFFFFF;
+		display: inline-block;
+		float: left;
+		height: 30px;
+		clear: both;
+		width: 100%;
+	}
+	.newsletter-box .btn {
+		border: medium none;
+		-webkit-border-radius: 3px;
+		-moz-border-radius: 3px;
+		-o-border-radius: 3px;
+		-ms-border-radius: 3px;
+		border-radius: 3px;
+		display: inline-block;
+		height: 40px;
+		padding: 0;
+		width: 100%;
+		color: #fff;
+	}
+	.newsletter-box {
+		overflow: hidden;
+	}
+	.bg-gray {
+		background-image: -moz-linear-gradient(center bottom, #BBBBBB 0%, #F0F0F0 100%);
+		box-shadow: 0 1px 0 #B4B3B3;
+	}
+	.social li {
+		background: none repeat scroll 0 0 #B5B5B5;
+		border: 2px solid #B5B5B5;
+		-webkit-border-radius: 50%;
+		-moz-border-radius: 50%;
+		-o-border-radius: 50%;
+		-ms-border-radius: 50%;
+		border-radius: 50%;
+		float: left;
+		height: 36px;
+		line-height: 36px;
+		margin: 0 8px 0 0;
+		padding: 0;
+		text-align: center;
+		width: 36px;
+		transition: all 0.5s ease 0s;
+		-moz-transition: all 0.5s ease 0s;
+		-webkit-transition: all 0.5s ease 0s;
+		-ms-transition: all 0.5s ease 0s;
+		-o-transition: all 0.5s ease 0s;
+	}
+	.social li:hover {
+		transform: scale(1.15) rotate(360deg);
+		-webkit-transform: scale(1.1) rotate(360deg);
+		-moz-transform: scale(1.1) rotate(360deg);
+		-ms-transform: scale(1.1) rotate(360deg);
+		-o-transform: scale(1.1) rotate(360deg);
+	}
+	.social li a {
+		color: #EDEFF1;
+	}
+	.social li:hover {
+		border: 2px solid #2c3e50;
+		background: #2c3e50;
+	}
+	.social li a i {
+		font-size: 16px;
+		margin: 0 0 0 5px;
+		color: #EDEFF1 !important;
+	}
+	.footer-bottom {
+		background: #E3E3E3;
+		border-top: 1px solid #DDDDDD;
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+	.footer-bottom p.pull-left {
+		padding-top: 6px;
+	}
+	.payments {
+		font-size: 1.5em;	
+	}
+	#slider-text{
+		padding-top: 40px;
+		display: block;
+	}
+	#slider-text .col-md-6{
+		overflow: hidden;
+	}
+
+	#slider-text h2 {
+		font-family: 'Josefin Sans', sans-serif;
+		font-weight: 400;
+		font-size: 30px;
+		letter-spacing: 3px;
+		margin: 30px auto;
+		padding-left: 40px;
+	}
+	#slider-text h2::after{
+		border-top: 2px solid #c7c7c7;
+		content: "";
+		position: absolute;
+		bottom: 35px;
+		width: 100%;
+	}
+
+	#itemslider h4{
+		font-family: 'Josefin Sans', sans-serif;
+		font-weight: 400;
+		font-size: 12px;
+		margin: 10px auto 3px;
+	}
+	#itemslider h5{
+		font-family: 'Josefin Sans', sans-serif;
+		font-weight: bold;
+		font-size: 12px;
+		margin: 3px auto 2px;
+	}
+	#itemslider h6{
+		font-family: 'Josefin Sans', sans-serif;
+		font-weight: 300;;
+		font-size: 10px;
+		margin: 2px auto 5px;
+	}
+	.badge {
+		background: #b20c0c;
+		position: absolute;
+		height: 40px;
+		width: 40px;
+		border-radius: 50%;
+		line-height: 31px;
+		font-family: 'Josefin Sans', sans-serif;
+		font-weight: 300;
+		font-size: 14px;
+		border: 2px solid #FFF;
+		box-shadow: 0 0 0 1px #b20c0c;
+		top: 5px;
+		right: 25%;
+	}
+	#slider-control img{
+		padding-top: 60%;
+		margin: 0 auto;
+	}
+	@media screen and (max-width: 992px){
+		#slider-control img {
+			padding-top: 70px;
+			margin: 0 auto;
+		}
+	}
+
+	.carousel-showmanymoveone .carousel-control {
+		width: 4%;
+		background-image: none;
+	}
+	.carousel-showmanymoveone .carousel-control.left {
+		margin-left: 5px;
+	}
+	.carousel-showmanymoveone .carousel-control.right {
+		margin-right: 5px;
+	}
+	.carousel-showmanymoveone .cloneditem-1,
+	.carousel-showmanymoveone .cloneditem-2,
+	.carousel-showmanymoveone .cloneditem-3,
+	.carousel-showmanymoveone .cloneditem-4,
+	.carousel-showmanymoveone .cloneditem-5 {
+		display: none;
+	}
+	@media all and (min-width: 768px) {
+		.carousel-showmanymoveone .carousel-inner > .active.left,
+		.carousel-showmanymoveone .carousel-inner > .prev {
+			left: -50%;
+		}
+		.carousel-showmanymoveone .carousel-inner > .active.right,
+		.carousel-showmanymoveone .carousel-inner > .next {
+			left: 50%;
+		}
+		.carousel-showmanymoveone .carousel-inner > .left,
+		.carousel-showmanymoveone .carousel-inner > .prev.right,
+		.carousel-showmanymoveone .carousel-inner > .active {
+			left: 0;
+		}
+		.carousel-showmanymoveone .carousel-inner .cloneditem-1 {
+			display: block;
+		}
+	}
+	@media all and (min-width: 768px) and (transform-3d), all and (min-width: 768px) and (-webkit-transform-3d) {
+		.carousel-showmanymoveone .carousel-inner > .item.active.right,
+		.carousel-showmanymoveone .carousel-inner > .item.next {
+			-webkit-transform: translate3d(50%, 0, 0);
+			transform: translate3d(50%, 0, 0);
+			left: 0;
+		}
+		.carousel-showmanymoveone .carousel-inner > .item.active.left,
+		.carousel-showmanymoveone .carousel-inner > .item.prev {
+			-webkit-transform: translate3d(-50%, 0, 0);
+			transform: translate3d(-50%, 0, 0);
+			left: 0;
+		}
+		.carousel-showmanymoveone .carousel-inner > .item.left,
+		.carousel-showmanymoveone .carousel-inner > .item.prev.right,
+		.carousel-showmanymoveone .carousel-inner > .item.active {
+			-webkit-transform: translate3d(0, 0, 0);
+			transform: translate3d(0, 0, 0);
+			left: 0;
+		}
+	}
+	@media all and (min-width: 992px) {
+		.carousel-showmanymoveone .carousel-inner > .active.left,
+		.carousel-showmanymoveone .carousel-inner > .prev {
+			left: -16.666%;
+		}
+		.carousel-showmanymoveone .carousel-inner > .active.right,
+		.carousel-showmanymoveone .carousel-inner > .next {
+			left: 16.666%;
+		}
+		.carousel-showmanymoveone .carousel-inner > .left,
+		.carousel-showmanymoveone .carousel-inner > .prev.right,
+		.carousel-showmanymoveone .carousel-inner > .active {
+			left: 0;
+		}
+		.carousel-showmanymoveone .carousel-inner .cloneditem-2,
+		.carousel-showmanymoveone .carousel-inner .cloneditem-3,
+		.carousel-showmanymoveone .carousel-inner .cloneditem-4,
+		.carousel-showmanymoveone .carousel-inner .cloneditem-5,
+		.carousel-showmanymoveone .carousel-inner .cloneditem-6  {
+			display: block;
+		}
+	}
+	@media all and (min-width: 992px) and (transform-3d), all and (min-width: 992px) and (-webkit-transform-3d) {
+		.carousel-showmanymoveone .carousel-inner > .item.active.right,
+		.carousel-showmanymoveone .carousel-inner > .item.next {
+			-webkit-transform: translate3d(16.666%, 0, 0);
+			transform: translate3d(16.666%, 0, 0);
+			left: 0;
+		}
+		.carousel-showmanymoveone .carousel-inner > .item.active.left,
+		.carousel-showmanymoveone .carousel-inner > .item.prev {
+			-webkit-transform: translate3d(-16.666%, 0, 0);
+			transform: translate3d(-16.666%, 0, 0);
+			left: 0;
+		}
+		.carousel-showmanymoveone .carousel-inner > .item.left,
+		.carousel-showmanymoveone .carousel-inner > .item.prev.right,
+		.carousel-showmanymoveone .carousel-inner > .item.active {
+			-webkit-transform: translate3d(0, 0, 0);
+			transform: translate3d(0, 0, 0);
+			left: 0;
+		}
+	}
+
+	textarea {
+		margin-top: 10px;
+		margin-left: 50px;
+		width: 500px;
+		height: 100px;
+		-moz-border-bottom-colors: none;
+		-moz-border-left-colors: none;
+		-moz-border-right-colors: none;
+		-moz-border-top-colors: none;
+		background: none repeat scroll 0 0 rgba(0, 0, 0, 0.07);
+		border-color: -moz-use-text-color #FFFFFF #FFFFFF -moz-use-text-color;
+		border-image: none;
+		border-radius: 6px 6px 6px 6px;
+		border-style: none solid solid none;
+		border-width: medium 1px 1px medium;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12) inset;
+		color: #555555;
+		font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+		font-size: 1em;
+		line-height: 1.4em;
+		padding: 5px 8px;
+		transition: background-color 0.2s ease 0s;
+	}
+
+
+	textarea:focus {
+		background: none repeat scroll 0 0 #FFFFFF;
+		outline-width: 0;
+	}
+	.item{
+
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		text-align: center;
+	}
+	.item {
+
+	}
+	.item img {
+		display: block;
+		margin: auto;}
+
+		.modal5 {
+			opacity: 0;
+			visibility: hidden;
+			position: fixed;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			text-align: left;
+			background-color: black;
+			transition: opacity .25s ease;
+		}
+
+		.modal__bg5 {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			cursor: pointer;
+		}
+
+		.modal-state5 {
+			display: none;
+		}
+
+		.modal-state5:checked + .modal5 {
+			opacity: 1;
+			visibility: visible;
+		}
+
+		.modal-state5:checked + .modal5 .modal__inner5 {
+			top: 0;
+		}
+
+		.modal__inner5 {
+			transition: top .25s ease;
+			position: absolute;
+			top: -20%;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			width: 50%;
+			margin: auto;
+			overflow: auto;
+			background: white;
+			border-radius: 5px;
+			padding: 1em 2em;
+			height: 50%;
+		}
+
+		.modal__close5 {
+			position: absolute;
+			right: 1em;
+			top: 1em;
+			width: 1.1em;
+			height: 1.1em;
+			cursor: pointer;
+		}
+
+		.modal__close5:after,
+		.modal__close5:before {
+			content: '';
+			position: absolute;
+			width: 2px;
+			height: 1.5em;
+			background: #ccc;
+			display: block;
+			transform: rotate(45deg);
+			left: 50%;
+			margin: -3px 0 0 -1px;
+			top: 0;
+		}
+
+		.modal__close5:hover:after,
+		.modal__close5:hover:before {
+			background: #aaa;
+		}
+
+		.modal__close5:before {
+			transform: rotate(-45deg);
+		}
+
+		@media screen and (max-width: 768px) {
+
+			.modal__inner5 {
+				width: 90%;
+				height: 90%;
+				box-sizing: border-box;
+			}
+		}
+#add{
+
+	font-size:0.7vw;
+}
+.card-container.card {
+    max-width: 350px;
+    padding: 40px 40px;
+}
+
+.btn {
+    font-weight: 700;
+    height: 36px;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: default;
+}
+
+/*
+ * Card component
+ */
+.card {
+    background-color: #F7F7F7;
+    /* just in case there no content*/
+    padding: 20px 25px 30px;
+    margin: 0 auto 25px;
+    margin-top: 50px;
+    /* shadows and rounded borders */
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.profile-img-card {
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 10px;
+    display: block;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+}
+
+/*
+ * Form styles
+ */
+.profile-name-card {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin: 10px 0 0;
+    min-height: 1em;
+}
+
+.reauth-email {
+    display: block;
+    color: #404040;
+    line-height: 2;
+    margin-bottom: 10px;
+    font-size: 14px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+ .form-signin #inputEmail,
+ .form-signin #firstname,
+ .form-signin #lastname,
+ .form-signin #mobile,
+ .form-signin #address,
+ .form-signin #city,
+ .form-signin #pincode,
+ .form-signin #upload,
+ .form-signin #confirmPassword,
+ .form-signin #inputPassword {
+ 	direction: ltr;
+ 	height: 44px;
+ 	font-size: 16px;
+ }
+
+.form-signin input[type=email],
+.form-signin input[type=password],
+.form-signin input[type=text],
+.form-signin button {
+    width: 100%;
+    display: block;
+    margin-bottom: 10px;
+    z-index: 1;
+    position: relative;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.form-signin .form-control:focus {
+    border-color: rgb(104, 145, 162);
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgb(104, 145, 162);
+}
+
+.btn.btn-signin {
+    /*background-color: #4d90fe; */
+    background-color: rgb(104, 145, 162);
+    /* background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
+    padding: 0px;
+    font-weight: 700;
+    font-size: 14px;
+    height: 36px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: none;
+    -o-transition: all 0.218s;
+    -moz-transition: all 0.218s;
+    -webkit-transition: all 0.218s;
+    transition: all 0.218s;
+}
+
+.btn.btn-signin:hover,
+.btn.btn-signin:active,
+.btn.btn-signin:focus {
+    background-color: rgb(12, 97, 33);
+}
+
+.forgot-password {
+    color: rgb(104, 145, 162);
+}
+
+.forgot-password:hover,
+.forgot-password:active,
+.forgot-password:focus{
+    color: rgb(12, 97, 33);
+}
+
+
+</style>
+<script type="text/javascript">
+	function validateForm() {
+		var x = document.forms["myform"]["mobile"].value;
+		if(x.length!=10)
+		{
+			swal("Enter a valid Mobile No.");
+			return false;
+		}
+		var y=document.forms["myform"]["password1"].value;
+		var z=document.forms["myform"]["password2"].value;
+		if(y!=z){
+			swal("Password Doesn't Match");
+			return false;
+
+		}
+
+	}
+</script>
+</head>
+<body>
+
+	<div class="container">
+		<nav class="navbar navbar-default navbar-fixed-top" style="background-color:	#D3D3D3;" >
+			<div class="navbar-header">
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".js-navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><b>HACKOVER FLOW</b></a>
+			</div>
+
+			<div class="collapse navbar-collapse js-navbar-collapse">
+				<ul class="nav navbar-nav">
+					<li class="dropdown mega-dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown">Men <span class="caret"></span></a>				
+						<ul class="dropdown-menu mega-dropdown-menu">
+							<li class="col-sm-3">
+								Myself 
+								<br>
+								Helf
+								<br>
+								Singh
+							</li>
+							<li class="col-sm-3">
+								<ul>
+									<li class="dropdown-header">Features</li>
+									<li><a href="#">Auto Carousel</a></li>
+									<li><a href="#">Carousel Control</a></li>
+									<li><a href="#">Left & Right Navigation</a></li>
+									<li><a href="#">Four Columns Grid</a></li>
+									<li class="divider"></li>
+									<li class="dropdown-header">Fonts</li>
+									<li><a href="#">Glyphicon</a></li>
+									<li><a href="#">Google Fonts</a></li>
+								</ul>
+							</li>
+							<li class="col-sm-3">
+								<ul>
+									<li class="dropdown-header">Plus</li>
+									<li><a href="#">Navbar Inverse</a></li>
+									<li><a href="#">Pull Right Elements</a></li>
+									<li><a href="#">Coloured Headers</a></li>                            
+									<li><a href="#">Primary Buttons & Default</a></li>							
+								</ul>
+							</li>
+							<li class="col-sm-3">
+								<ul>
+									<li class="dropdown-header">Much more</li>
+									<li><a href="#">Easy to Customize</a></li>
+									<li><a href="#">Calls to action</a></li>
+									<li><a href="#">Custom Fonts</a></li>
+									<li><a href="#">Slide down on Hover</a></li>                         
+								</ul>
+							</li>
+						</ul>				
+					</li>
+
+					<li><a href="#">Store locator</a></li>
+					<form class="navbar-form navbar-left" action="#">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search">
+							<div class="input-group-btn">
+								<button class="btn btn-default" type="submit">
+									<i class="glyphicon glyphicon-search"></i>
+								</button>
+							</div>
+						</div>
+					</form>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">My account <span class="caret"></span></a>
+						<ul class="dropdown-menu" role="menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+						</ul>
+					</li>
+					<li><a href="#">My cart (0) items</a></li>
+				</ul>
+			</div><!-- /.nav-collapse -->
+		</nav>
+	</div>
+<br>
+<br>
+<div class="container">
+
+<td valign="top"><p align="center"><strong>Composting</strong></p>
+        <p align="justify"><strong>Composting - an overview </strong></p>
+        <p align="justify">Composting  is the natural process of 'rotting' or decomposition of organic matter by  microorganisms under controlled conditions. Raw organic materials such as crop  residues, animal wastes, food garbage, some municipal wastes and suitable  industrial wastes, enhance their suitability for application to the soil as a  fertilizing resource, after having undergone composting.</p>
+        <p align="justify">A mass of rotted organic matter made from waste is called compost. The compost made from farm waste like sugarcane trash, paddy straw, weeds and other plants and other waste is called farm compost. The average nutrient contents of farm compost are 0.5 per cent N, 0.15 per cent P2O5and 0.5 per cent K2O<em>.&nbsp;</em>The nutrient value of farm compost can be increased by application of superphosphate or rock phosphate at 10 to 15 kg/t of raw material at the initial stage of filling the compost pit. The compost made from town refuses like night soil, street sweepings and dustbin refuse is called town compost. It contains 1.4 per cent N, 1.00 per cent P2O5 and 1.4 per cent K2O.</p>
+        <p align="justify">Farm compost is made by placing farm wastes in trenches of suitable size, say, 4.5 m to 5.0 m long, 1.5m to 2.0 m wide and 1.0 m to 2.0 m deep. Farm waste is placed in the trenches layer by layer. Each layer is well moistened by sprinkling cow dung slurry or water. Trenches are filled up to a height of 0.5 m above the ground. The compost is ready for application within five to six months.</p>
+        <p align="justify">Composting is essentially a microbiological decomposition of organic residues collected from rural area (rural compost) or urban area (urban compost).</p>
+        <p align="justify"><strong>Methods of composting</strong></p>
+        <p align="justify">In&nbsp;<strong>Coimbatore method</strong>, composting is done in pits of different sizes depending on the waste material available. A layer of waste materials is first laid in the pit. It is moistened with a suspension of 5-10 kg cow dung in 2.5 to 5.0 I of water and 0.5 to 1.0 kg fine bone meal sprinkled over it uniformly. Similar layers are laid one over the other till the material rises 0.75 m above the ground level. It is finally plastered with wet mud and left undisturbed for 8 to 10 weeks. Plaster is then removed, material moistened with water, given a turning and made into a rectangular heap under a shade. It is left undisturbed till its use.</p>
+        <p align="justify">In the&nbsp;<strong>Indore method</strong>&nbsp;of composting, organic wastes are spread in the cattle shed to serve as bedding. Urine soaked material along with dung is removed every day and formed into a layer of about 15 cm thick at suitable sites. Urine soaked earth, scraped from cattle sheds is mixed with water and sprinkled over the layer of wastes twice or thrice a day. Layering process continued for about a fortnight. A thin layer of well decomposed compost is sprinkled over top and the heap given a turning and reformed. Old compost acts as inoculum for decomposing the material. The heap is left undisturbed for about a month. Then it is thoroughly moistened and given a turning. The compost is ready for application in another month.</p>
+        <p align="justify">In the&nbsp;<strong>Bangalore method</strong>&nbsp;of composting, dry waste material of 25 cm thick is spread in a pit and a thick suspension of cow dung in water is sprinkled over for moistening. A thin layer of dry waste is laid over the moistened layer. The pit is filled alternately with dry layers of material and cow dung suspension till it rises 0.5 m above ground level. It is left exposed without covering for 15 days. It is given a turning, plastered with wet mud and left undisturbed for about 5 months or till required.</p>
+        <p align="justify">In Coimbatore method, there is anaerobic decomposition to start with, following by aerobic fermentation. It is the reverse in Bangalore method. The Bangalore compost is not so thoroughly decomposed as the Indore compost or even as much as the Coimbatore compost, but it is bulkiest.</p>
+        <p align="justify">          Compost  is a rich source of organic matter. Soil organic matter plays an important role  in sustaining soil fertility, and hence in sustainable agricultural production.  In addition to being a source of plant nutrient, it improves the  physico-chemical and biological properties of the soil. As a result of these  improvements, the soil: </p>
+        <p align="justify">(i) becomes more resistant to stresses such as drought, diseases and toxicity;<br />
+          (ii) helps the crop in improved uptake of plant nutrients; and <br />
+        (iii) possesses an active nutrient cycling capacity because of vigorous microbial activity. </p>
+        <p align="justify">These advantages manifest themselves in reduced cropping risks, higher yields and lower outlays on inorganic fertilizers for farmers.</p>
+        <p align="justify"><strong>Dung and urine  produced by animals per day</strong></p>
+        <div align="left">
+          <table width="514" border="1" align="center" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="103" align="center" valign="middle" bgcolor="#fceed2"><strong class="style44">Animal</strong></td>
+              <td width="120" align="center" valign="middle" bgcolor="#fceed2" class="style44"><strong>Urine</strong><br />                
+              <strong>&nbsp;(ml / kg live wt)</strong></td>
+              <td width="114" align="center" valign="middle" bgcolor="#fceed2" class="style44"><strong>Quantity of dung (Kg) per day</strong></td>
+            </tr>
+            <tr>
+              <td width="103" align="left" valign="middle" bgcolor="#f3fdde">Horse</td>
+              <td width="120" align="left" valign="middle" bgcolor="#f3fdde">3-18</td>
+              <td width="114" align="left" valign="middle" bgcolor="#f3fdde">9-18</td>
+            </tr>
+            <tr>
+              <td width="103" align="left" valign="middle" bgcolor="#f3fdde">Cattle</td>
+              <td width="120" align="left" valign="middle" bgcolor="#f3fdde">17-45</td>
+              <td width="114" align="left" valign="middle" bgcolor="#f3fdde">18-30</td>
+            </tr>
+            <tr>
+              <td width="103" align="left" valign="middle" bgcolor="#f3fdde">Buffaloes</td>
+              <td width="120" align="left" valign="middle" bgcolor="#f3fdde">20-45</td>
+              <td width="114" align="left" valign="middle" bgcolor="#f3fdde">25-40</td>
+            </tr>
+            <tr>
+              <td width="103" align="left" valign="middle" bgcolor="#f3fdde">Sheep and goats</td>
+              <td width="120" align="left" valign="middle" bgcolor="#f3fdde">10-40</td>
+              <td width="114" align="left" valign="middle" bgcolor="#f3fdde">1-2.5</td>
+            </tr>
+            <tr>
+              <td width="103" align="left" valign="middle" bgcolor="#f3fdde">Pigs</td>
+              <td width="120" align="left" valign="middle" bgcolor="#f3fdde">5-30</td>
+              <td width="114" align="left" valign="middle" bgcolor="#f3fdde">3-5</td>
+            </tr>
+            <tr>
+              <td width="103" align="left" valign="middle" bgcolor="#f3fdde">Poultry</td>
+              <td width="120" align="left" valign="middle" bgcolor="#f3fdde">-</td>
+              <td width="114" align="left" valign="middle" bgcolor="#f3fdde">2.5-3.5</td>
+            </tr>
+          </table>
+        </div>
+        <p align="left"><strong>Nutritive value of animal solid and liquid  excreta</strong></p>
+        <div align="left">
+          <table border="1" align="center" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="121" rowspan="2" align="center" valign="middle" bgcolor="#fceed2"><span class="style44"><strong>Animal&nbsp;</strong></span></td>
+              <td colspan="3" align="center" valign="middle" bgcolor="#fceed2"><span class="style44"><strong>Dung (mg/g)</strong></span></td>
+              <td colspan="3" align="center" valign="middle" bgcolor="#fceed2"><span class="style44"><strong>Urine (%)</strong></span></td>
+            </tr>
+            <tr>
+              <td width="77" align="center" valign="middle" bgcolor="#fceed2"><span class="style44"><strong>N</strong></span></td>
+              <td width="79" align="center" valign="middle" bgcolor="#fceed2"><span class="style44"><strong>P</strong></span></td>
+              <td width="71" align="center" valign="middle" bgcolor="#fceed2"><span class="style44"><strong>K</strong></span></td>
+              <td width="70" align="center" valign="middle" bgcolor="#fceed2"><span class="style44"><strong>N</strong></span></td>
+              <td width="74" align="center" valign="middle" bgcolor="#fceed2"><span class="style44"><strong>P</strong></span></td>
+              <td width="85" align="center" valign="middle" bgcolor="#fceed2"><span class="style44"><strong>K</strong></span></td>
+            </tr>
+            <tr>
+              <td width="121" align="left" valign="middle" bgcolor="#f3fdde">Cattle</td>
+              <td width="77" align="center" valign="middle" bgcolor="#f3fdde">20-45</td>
+              <td width="79" align="center" valign="middle" bgcolor="#f3fdde">4-10</td>
+              <td width="71" align="center" valign="middle" bgcolor="#f3fdde">7-25</td>
+              <td width="70" align="center" valign="middle" bgcolor="#f3fdde">1.21</td>
+              <td width="74" align="center" valign="middle" bgcolor="#f3fdde">0.01</td>
+              <td width="85" align="center" valign="middle" bgcolor="#f3fdde">1.35</td>
+            </tr>
+            <tr>
+              <td width="121" align="left" valign="middle" bgcolor="#f3fdde">Sheep and goat</td>
+              <td width="77" align="center" valign="middle" bgcolor="#f3fdde">20-45</td>
+              <td width="79" align="center" valign="middle" bgcolor="#f3fdde">4-11</td>
+              <td width="71" align="center" valign="middle" bgcolor="#f3fdde">20-29</td>
+              <td width="70" align="center" valign="middle" bgcolor="#f3fdde">1.47</td>
+              <td width="74" align="center" valign="middle" bgcolor="#f3fdde">0.05</td>
+              <td width="85" align="center" valign="middle" bgcolor="#f3fdde">1.96</td>
+            </tr>
+            <tr>
+              <td width="121" align="left" valign="middle" bgcolor="#f3fdde">Pig</td>
+              <td width="77" align="center" valign="middle" bgcolor="#f3fdde">20-45</td>
+              <td width="79" align="center" valign="middle" bgcolor="#f3fdde">6-12</td>
+              <td width="71" align="center" valign="middle" bgcolor="#f3fdde">15-48</td>
+              <td width="70" align="center" valign="middle" bgcolor="#f3fdde">0.38</td>
+              <td width="74" align="center" valign="middle" bgcolor="#f3fdde">0.1</td>
+              <td width="85" align="center" valign="middle" bgcolor="#f3fdde">0.99</td>
+            </tr>
+            <tr>
+              <td width="121" align="left" valign="middle" bgcolor="#f3fdde">Poultry</td>
+              <td width="77" align="center" valign="middle" bgcolor="#f3fdde">28-62</td>
+              <td width="79" align="center" valign="middle" bgcolor="#f3fdde">9-26</td>
+              <td width="71" align="center" valign="middle" bgcolor="#f3fdde">8-29</td>
+              <td width="70" align="center" valign="middle" bgcolor="#f3fdde">-</td>
+              <td width="74" align="center" valign="middle" bgcolor="#f3fdde">-</td>
+              <td width="85" align="center" valign="middle" bgcolor="#f3fdde">-</td>
+            </tr>
+          </table>
+        </div>
+        <p align="left"><strong>Why composting is  necessary?</strong></p>
+        <ul>
+          <li>
+            <div align="justify">The  rejected biological materials contain complex chemical compounds such as  lignin, cellulose, hemicellulose, polysaccharides, proteins, lipids etc.</div>
+          </li>
+          <li>
+            <div align="justify">These  complex materials cannot be used as such as resource materials.</div>
+          </li>
+          <li>
+            <div align="justify">The  complex materials should be converted into simple inorganic element as  available nutrient.</div>
+          </li>
+          <li>
+            <div align="justify">The  material put into soil without conversion will undergo conversion inside the  soil.</div>
+          </li>
+          <li>
+            <div align="justify">This  conversion process take away all energy and available nutrients from the soil  affecting the crop.</div>
+          </li>
+          <li>
+            <div align="justify">Hence  conversion period is mandatory.</div>
+          </li>
+        </ul>
+        <p align="left"><strong>Advantages of  Composting</strong></p>
+        <ul>
+          <li>
+            <div align="justify">Volume  reduction of waste.<strong></strong></div>
+          </li>
+          <li>
+            <div align="justify">Final  weight of compost is very less.<strong></strong></div>
+          </li>
+          <li>
+            <div align="justify">Composting  temperature kill pathogen, weed seeds and seeds.<strong></strong></div>
+          </li>
+          <li>
+            <div align="justify">Matured  compost comes into equilibrium with the soil.<strong></strong></div>
+          </li>
+          <li>
+            <div align="justify">During  composting number of wastes from several sources are blended together.<strong></strong></div>
+          </li>
+          <li>
+            <div align="justify">Excellent  soil conditioner<strong></strong></div>
+          </li>
+          <li>
+            <div align="justify">Saleable  product<strong></strong></div>
+          </li>
+          <li>
+            <div align="justify">Improves  manure&nbsp; handling<strong></strong></div>
+          </li>
+          <li>
+            <div align="justify">Redues  the risk of pollution<strong></strong></div>
+          </li>
+          <li>
+            <div align="justify">Pathogen  reduction<strong></strong></div>
+          </li>
+          
+          <li>
+            <div align="justify">Additional revenue. </div>
+          </li>
+          <li>
+            <div align="justify">Suppress plant diseases and pests.</div>
+          </li>
+          <li>
+            <div align="justify">Reduce or eliminate the need for chemical fertilizers.</div>
+          </li>
+          <li>
+            <div align="justify">Promote higher yields of agricultural crops.</div>
+          </li>
+          <li>
+            <div align="justify">Facilitate reforestation, wetlands restoration, and habitat       revitalization efforts by amending contaminated, compacted, and marginal       soils. </div>
+          </li>
+          <li>
+            <div align="justify">Cost-effectively remediate soils contaminated by hazardous waste.</div>
+          </li>
+          <li>
+            <div align="justify">Remove solids, oil, grease, and heavy metals from stormwater runoff. </div>
+          </li>
+          <li>
+            <div align="justify">Capture and destroy 99.6 percent of industrial volatile organic       chemicals (VOCs) in contaminated air. </div>
+          </li>
+          <li>
+            <div align="justify">Provide cost savings of at least 50 percent over conventional soil,       water, and air pollution remediation technologies, where applicable.</div>
+          </li>
+        </ul>
+        <p align="left"><strong>Drawbacks of Using  Composts</strong><br />
+          Agricultural use of composts remains  low for several reasons: </p>
+        <ul type="disc">
+          <li>
+            <div align="justify">The product is weighty and bulky, making       it expensive to transport. </div>
+          </li>
+          <li>
+            <div align="justify">The nutrient value of compost is low       compared with that of chemical fertilizers, and the rate of nutrient       release is slow so that it cannot usually meet the nutrient requirement of       crops in a short time, thus resulting in some nutrient deficiency </div>
+          </li>
+          <li>
+            <div align="justify">The nutrient composition of compost is       highly variable compared to chemical fertilizers. </div>
+          </li>
+          <li>
+            <div align="justify">Agricultural users might have concerns       regarding potential levels of heavy metals and other possible contaminants       in compost, particularly mixed municipal solid wastes. The potential for       contamination becomes an important issue when compost is used on food       crops. </div>
+          </li>
+          <li>
+            <div align="justify">Long-term and/or heavy application of       composts to agricultural soils has been found to result in salt, nutrient,       or heavy metal accumulation and may adversely affect plant growth, soil       organisms, water quality, and animal and human health </div>
+          </li>
+        </ul>
+        <p align="left"><strong>Composting  organic materials with high lignin content - lime treatment</strong></p>
+        <div align="justify">
+          <ul>
+            <li>By adding organic wastes such as sawdust,  wood shavings, coir pith, pine needles, and dry fallen leaves, while preparing  organic waste mixtures for composting, one can ensure that the compost produced  contains sufficient and long-lasting humus. However, gardeners often find that  where they use lignin-rich plant materials, the compost does not ripen rapidly.  A technique for making good compost from hard plant materials involves mixing lime  in a ratio of 5 kg per 1000 kg of waste material. Lime can be applied as dry  powder or after mixing with a sufficient quantity of water. Treatment with lime  enhances the process of decomposition of hard materials. </li>
+            <li>Liming can enhance the  humification process in plant residues by enhancing microbial population and  activity and by weakening lignin structure. It also improves the humus quality  by changing the ratio of humic to fulvic acids and decreases the amount of  bitumen, which interferes with the decomposition process. Instead of lime,  powdered phosphate rock can be used in a ratio of 20 kg per 1 000 kg of organic  waste. Phosphate rock contains a lot of lime. The phosphates and micronutrients  contained in phosphate rock make composts rich in plant nutrients.</li>
+          </ul>
+          <div align="left"><strong>Composting  weeds</strong></div>
+          <div align="justify">
+            <ul>
+              <li>This method has been developed for composting  weeds such as parthenium, water hyacinth (<em>Eichornia crassipes</em>), cyperus (<em>Cyperus  rotundus</em>) and cynodon (<em>Cynodon dactylon</em>). </li>
+            </ul>
+            <p align="left"><strong>Materials Required</strong></p>
+            <ul>
+              <li>250 g of <em>Trichoderma viride </em>and <em>Pleurotus  sajor-caju </em>consortia, and 5 kg of urea. An elevated shaded place is  selected, or a thatched shed is erected. An area of 500 cm &times; 150 cm is marked  out. The material to be composted is cut to 10-15 cm in size. About 100 kg of  cut material is spread over the marked area. About 50 g of microbial consortia  is sprinkled over this layer. About 100 kg of weeds are spread on this layer.  One kilogram of urea is sprinkled uniformly over the layer. This process is  repeated until the level rises to 1 m. Water is sprinkled as necessary to  maintain a moisture level of 50-60 percent. Thereafter, the surface of the heap  is covered with a thin layer of soil. The pile requires a thorough turning on  the twenty-first day. The compost is ready in about 40 days.        </li>
+            </ul>
+          </div>
+        </div>
+        <h2 align="left" class="style30"><strong>Compost enrichment</strong></h2>
+        <p align="justify">Farm  compost is poor in P content (0.4-0.8 percent). Addition of P makes the compost  more balanced, and supplies nutrient to micro-organisms for their  multiplication and faster decomposition. The addition of P also reduces N  losses. Compost can be enriched by:</p>
+        <ul>
+          <li>
+            <div align="justify">Application of superphosphate, bonemeal or  phosphate rock: 1 kg of superphosphate or bonemeal is applied over each layer  of animal dung. Low-grade phosphate rock can also be used for this purpose.</div>
+          </li>
+          <li>
+            <div align="justify">Use of animal bones: these can be broken into  small pieces, boiled with wood ash leachate or lime water and drained, and the  residue applied to the pits. This procedure of boiling bones facilitates their  disintegration. Even the addition of raw bones, broken into small pieces and  added to the pit, improves the nutrient value of compost significantly.</div>
+          </li>
+          <li>
+            <div align="justify">Wood ash waste can also be added to increase  the K content of compost.</div>
+          </li>
+          <li>
+            <div align="justify">Addition of N-fixing and P-solubilizing  cultures (IARI, 1989): The quality of compost can be further improved by the  secondary inoculation of <em>Azotobacter</em>, <em>Azospirillum lipoferum</em>, and <em>Azospirillum brasilence</em> (N-fixers); and <em>Bacillus megaterium </em>or <em>Pseudomonas </em>sp.  (P solubilizers). These organisms, in the form of culture broth or water  suspension of biofertilizer products, can be sprinkled when the decomposing  material is turned after one month. By this time, the temperature of the  compost has also stabilized at about 35 &deg;C. As a result of this inoculation,  the N content of straw compost can be increased by up to 2 percent. In addition  to improving N content and the availability of other plant nutrients, these  additions help to reduce the composting time considerably.</div>
+          </li>
+        </ul><p align="center"></p>
+        <p align="left"><strong>The Benefits of Using Composts to Agriculture</strong></p>
+        <p align="justify">Compost  has been considered as a valuable soil amendment for centuries. Most people are  aware that using composts is an effective way to increase healthy plant  production, help save money, reduce the use of chemical fertilizers, and  conserve natural resources. Compost provides a stable organic matter that  improves the physical, chemical, and biological properties of soils, thereby  enhancing soil quality and crop production. When correctly applied, compost has  the following beneficial effects on soil properties, thus creating suitable  conditions for root development and consequently promoting higher yield and  higher quality of crops.</p>
+        <p align="left"><strong>Improves the Physical Properties of Soils</strong></p>
+        <ul type="disc">
+          <li>
+            <div align="justify">Reduces the soil       bulk density and improves the soil structure directly by loosening heavy       soils with organic matter, and indirectly by means of       aggregate-stabilizing humus contained in composts. Incorporating composts       into compacted soils improves root penetration and turf establishment. </div>
+          </li>
+          <li>
+            <div align="justify">Increases the water-holding       capacity of the soil directly by binding water to organic matter, and       indirectly by improving the soil structure, thus improving the absorption       and movement of water into the soil. Therefore, water requirement and       irrigation will be reduced. </div>
+          </li>
+          <li>
+            <div align="justify">Protects the       surface soil from water and wind erosion by reducing the soil-dispersion       action of beating raindrops, increasing infiltration, reducing water       runoff, and increasing surface wetness. Preventing erosion is essential       for protecting waterways and maintaining the quality and productivity of       the soil. </div>
+          </li>
+          <li>
+            <div align="justify">Helps bind the       soil particles into crumbs by the fungi or actinomycetes mycelia contained       in the compost and stimulated in the soil by its application, generally       increasing the stability of the soil against wind and water erosion. </div>
+          </li>
+          <li>
+            <div align="justify">Improves soil       aeration and thus supplies enough oxygen to the roots and escapes excess       carbon dioxide from the root space. </div>
+          </li>
+          <li>
+            <div align="justify">Increases the       soil temperature directly by its dark color, which increases heat       absorption by the soil, and indirectly by the improved soil structure. </div>
+          </li>
+          <li>
+            <div align="justify">Helps moderate       soil temperature and prevents rapid fluctuations of soil temperature,       hence, providing a better environment for root growth. This is especially       true of compost used as a surface mulch. </div>
+          </li>
+        </ul>
+        <p align="left"><strong>Enhances the Chemical Properties of Soils</strong></p>
+        <ul type="disc">
+          <li>
+            <div align="justify">Enables soils to       hold more plant nutrients and increases the cation exchange capacity       (CEC), anion exchange capacity (AEC), and buffering capacity of soils for       longer periods of time after composts are applied to soils. This is       important mainly for soils containing little clay and organic matter. </div>
+          </li>
+          <li>
+            <div align="justify">Builds up       nutrients in the soil. Composts contain the major nutrients required by       all plants [N,P,K, calcium (Ca), magnesium(Mg), and S] plus essential       micronutrients or trace elements, such as copper (Cu), zinc (Zn), iron       (Fe), manganese (Mn), boron (B), and molybdenum (Mb). </div>
+          </li>
+          <li>
+            <div align="justify">The nutrients       from mature composts are released to the plants slowly and steadily. The       benefits will last for more than one season. </div>
+          </li>
+          <li>
+            <div align="justify">Stabilizes the       volatile nitrogen of raw materials into large protein particles during       composting, thereby reducing N losses. </div>
+          </li>
+          <li>
+            <div align="justify">Provides active       agents, such as growth substances, which may be beneficial mainly to       germinating plants. </div>
+          </li>
+          <li>
+            <div align="justify">Adds organic       matter and humus to regenerate poor soils. </div>
+          </li>
+          <li>
+            <div align="justify">Buffers the soil       against rapid changes due to acidity, alkalinity, salinity, pesticides,       and toxic heavy metals. </div>
+          </li>
+        </ul>
+        <p align="left"><strong>Improves the Biological Properties of Soils</strong></p>
+        <ul type="disc">
+          <li>
+            <div align="justify">Supplies food       and encourages the growth of beneficial microorganisms and earthworms. </div>
+          </li>
+          <li>
+            <div align="justify">Helps suppress       certain plant diseases, soil borne diseases, and parasites. </div>
+          </li>
+          <li>
+            <div align="justify">Research has       shown that composts can help control plant diseases (e.g. Pythium root       rot, Rhizoctonia root rot, chili wilt, and parasitic nematode) and reduce       crop losses. A major California fruit and vegetable grower was able to cut       pesticide use by 80% after three years of compost applications as part of       an organic matter management system. Research has also indicated that some       composts, particularly those prepared from tree barks, release chemicals       that inhibit some plant pathogens. Disease control       with compost has been attributed to four possible mechanisms: </div>
+          </li>
+          <li>
+            <div align="justify">1) successful competition for nutrients by beneficial microorganisms; <br />
+              2) antibiotic production by beneficial microorganisms; <br />
+              3) successful predation against pathogens by beneficial microorganisms; <br />
+              4) activation of disease-resistant genes in plants by composts; and <br />
+            5) high temperatures that result from composting kill pathogens. </div>
+          </li>
+          <li>
+            <div align="justify">Reduces and       kills weed seeds by a combination of factors including the heat of the       compost pile, rotting, and premature germination. </div>
+          </li>
+        </ul>
+        <p align="left"><strong>Economic and Social  Benefits of Composting</strong></p>
+        <p align="left">The economic and  social benefits of composting include the following: </p>
+        <ul type="disc">
+          <li>
+            <div align="justify">Brings higher       prices for organically grown crops.            </div>
+          </li>
+          <li>
+            <div align="justify">Composting can       offer several potential economic benefits to communities:            </div>
+          </li>
+          <li>
+            <div align="justify">Extends       current landfill longevity and delays the construction of a more expensive       replacement landfill or incinerator. </div>
+          </li>
+          <li>
+            <div align="justify">Reduces or       avoids landfill or combustor tipping fees, and reduces waste disposal fees       and long-distance transportation costs. </div>
+          </li>
+          <li>
+            <div align="justify">Offers       environmental benefits from reduced landfill and combustion use.            </div>
+          </li>
+          <li>
+            <div align="justify">Creates new       jobs for citizens. </div>
+          </li>
+          <li>
+            <div align="justify">Produces       marketable products and a less-cost alternative to standard landfill       cover, artificial soil amendments, and conventional bioremediation       techniques. </div>
+          </li>
+          <li>
+            <div align="justify">Provides a       source of plant nutrients and improves soil fertility; results in       significant cost savings by reducing the need for water, pesticides,       fungicides, herbicides, and nematodes.            </div>
+          </li>
+          <li>
+            <div align="justify">Used as an       alternative to natural topsoil in new construction, landscape renovations,       and container gardens. Using composts in these types of applications is       not only less expensive than purchasing topsoil, but it can also often       produce better results when establishing a healthy vegetative cover.            </div>
+          </li>
+          <li>
+            <div align="justify">Used as mulch       for trees, orchards, landscapes, lawns, gardens, and makes an excellent       potting mix. Placed over the roots of plants, compost mulch conserves       water and stabilizes soil temperatures. In addition, it keeps plants       healthy by controlling weeds, providing a slow release of nutrients, and       preventing soil loss through erosion. </div>
+          </li>
+        </ul></td>
+    </tr>
+    <tr>
+      <td bgcolor="#f2f2f2" style="line-height:40%;">&nbsp;</td>
+
+</div>
+
+<br>
+<br>
+<footer>
+		<div class="footer" id="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
+						<h3> Lorem Ipsum </h3>
+						<ul>
+							<li> <a href="#"> Lorem Ipsum </a> </li>
+							<li> <a href="#"> Lorem Ipsum </a> </li>
+							<li> <a href="#"> Lorem Ipsum </a> </li>
+							<li> <a href="#"> Lorem Ipsum </a> </li>
+						</ul>
+					</div>
+					<div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
+						<h3> Lorem Ipsum </h3>
+						<ul>
+							<li> <a href="#"> Lorem Ipsum </a> </li>
+							<li> <a href="#"> Lorem Ipsum </a> </li>
+							<li> <a href="#"> Lorem Ipsum </a> </li>
+							<li> <a href="#"> Lorem Ipsum </a> </li>
+						</ul>
+					</div>
+					<div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
+						<h3> Lorem Ipsum </h3>
+						<ul>
+							<li> <a href="#"> Lorem Ipsum </a> </li>
+							<li> <a href="#"> Lorem Ipsum </a> </li>
+							<li> <a href="#"> Lorem Ipsum </a> </li>
+							<li> <a href="#"> Lorem Ipsum </a> </li>
+						</ul>
+					</div>
+					<div class="col-lg-2  col-md-2 col-sm-4 col-xs-6">
+						<h3> Lorem Ipsum </h3>
+						<ul>
+							<li> <a href="#"> Lorem Ipsum </a> </li>
+							<li> <a href="#"> Lorem Ipsum </a> </li>
+							<li> <a href="#"> Lorem Ipsum </a> </li>
+							<li> <a href="#"> Lorem Ipsum </a> </li>
+						</ul>
+					</div>
+					<div class="col-lg-3  col-md-3 col-sm-6 col-xs-12 ">
+						<h3> Lorem Ipsum </h3>
+						<ul>
+							<li>
+								<div class="input-append newsletter-box text-center">
+									<input type="text" class="full text-center" placeholder="Email ">
+									<button class="btn  bg-gray" type="button"> Lorem ipsum <i class="fa fa-long-arrow-right"> </i> </button>
+								</div>
+							</li>
+						</ul>
+						<ul class="social">
+							<li> <a href="#"> <i class=" fa fa-facebook">   </i> </a> </li>
+							<li> <a href="#"> <i class="fa fa-twitter">   </i> </a> </li>
+							<li> <a href="#"> <i class="fa fa-google-plus">   </i> </a> </li>
+							<li> <a href="#"> <i class="fa fa-pinterest">   </i> </a> </li>
+							<li> <a href="#"> <i class="fa fa-youtube">   </i> </a> </li>
+						</ul>
+					</div>
+				</div>
+				<!--/.row--> 
+			</div>
+			<!--/.container--> 
+		</div>
+		<!--/.footer-->
+
+		<div class="footer-bottom">
+			<div class="container">
+				<p class="pull-left"> Copyright © HACKOVER_FLOW E-commerce 2018. All right reserved. </p>
+				<div class="pull-right">
+					<ul class="nav nav-pills payments">
+						<li><i class="fa fa-cc-visa"></i></li>
+						<li><i class="fa fa-cc-mastercard"></i></li>
+						<li><i class="fa fa-cc-amex"></i></li>
+						<li><i class="fa fa-cc-paypal"></i></li>
+					</ul> 
+				</div>
+			</div>
+		</div>
+		<!--/.footer-bottom--> 
+	</footer>
+	<script type="text/javascript">
+		$(function () {
+			$(document).scroll(function () {
+				var $nav = $(".navbar-fixed-top");
+				$nav.toggleClass('scrolled', $(this).scrollTop() > $nav.height());
+			});
+		});
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			$('#itemslider').carousel({ interval: 3000 });
+
+			$('.carousel-showmanymoveone .item').each(function(){
+				var itemToClone = $(this);
+
+				for (var i=1;i<6;i++) {
+					itemToClone = itemToClone.next();
+
+					if (!itemToClone.length) {
+						itemToClone = $(this).siblings(':first');
+					}
+
+					itemToClone.children(':first-child').clone()
+					.addClass("cloneditem-"+(i))
+					.appendTo($(this));
+				}
+			});
+		});
+
+	</script>
+
+
+</body>
+</html>

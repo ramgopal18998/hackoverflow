@@ -2,23 +2,37 @@
 <html>
 <head>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	<title>Profile</title>
+	<style>
+	#mihir{
+
+		box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+		background-color:  :yellow;
+		margin-top:4px;
+		margin-left:5px;
+		margin-bottom:5px;
+		margin-right:5px;
+		width:20%;
+	}
+	</style>
 </head>
 <body>
 	<h2>Weather Forecast</h2>
 	{% for i in forecast %}
-		<div class="col-sm-4" style="left;padding-top:20px;padding-bottom:20px;">
-			<img src="{{i.image.url}}" style="width: 150px;height: 150px;float: ">
-			<p>	Date:{{i.date}}</p>
-			<p>Day:{{i.day}}</p>
-			<p>High:{{i.high}}</p>
-			<p>Low:{{i.low}}</p>
-			<p>Text:{{i.text}}</p>
-		</div>
-		
-		
+	
+	<div class="col-sm-4" style="left;padding-top:20px;padding-bottom:20px; " id="mihir">
+		<img src="{{i.image.url}}" style="width:100%;height:180px;float: " class="img-responsive">
+		<br>
+		<p>	<b>Date:</b>&nbsp;{{i.date}}</p>
+		<p><b>Day:</b>&nbsp;{{i.day}}</p>
+		<p><b>High:</b>&nbsp;{{i.high}}</p>
+		<p><b>Low:</b>&nbsp;{{i.low}}</p>
+		<p><b>Text:</b>&nbsp;{{i.text}}</p>
+	</div>
+
+
 	{%endfor%}
 
 </body>

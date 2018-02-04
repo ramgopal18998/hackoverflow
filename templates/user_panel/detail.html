@@ -1,87 +1,44 @@
 {% extends 'base.html' %}
-
 {% block body %}
-
 <p><strong>{{question.question}}</strong></p>
-
 {% if question.answer == '0' %}
-
 <p>Not yet answered</p>
-
 {% else %}
-
 <p><strong>{{question.answer}}</strong></p>
-
 {% endif %}
-
 <br><br><br><br>
-
 <button class="btn btn-success glyphicon glyphicon-thumbs-up" onclick="up('{{question.id}}')"><span style="padding: 4px;">{{question.useful}}</span></button>
-
 	<button class="glyphicon glyphicon-thumbs-down btn btn-danger" onclick="down('{{question.id}}')" ><span style="padding: 4px;">{{question.not_useful}}</span></button>
-
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
 	<script>
-
 	function up(id)
-
 	{
-
 		data={'id':id};
-
 		console.log("up")
-
 		$.ajax({
-
 			type: "POST",
-
 			url: "/user_panel/questions/like",
-
 			data:data,
-
 			success: function(data){
-
 				alert(data);
-
 			}
 
-
-
 	});
-
 	}
-
-
 
 	function down(id)
-
 	{
-
 		data={'id':id};
-
 		$.ajax({
-
 			type: "POST",
-
 			url: "/user_panel/questions/dislike",
-
 			data:data,
-
 			success: function(data){
-
 				alert(data);
-
 			}
 
-
-
 	});
-
 	}
-
 </script>
-
-
 
 {% endblock %}

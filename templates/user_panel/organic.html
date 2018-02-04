@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container">
+	<div class="row">
+		<div class="col-sm-3" id="mihir">
+			<br>
+			<a href="{% url 'user_panel:practices' %}">
+			<h4>Farming Practices</h4>
+			<img src="/media/practices.png" height="200px" width="200px"/>
+		</a>
+			<br>
+
+		</div>
+		<div class="col-sm-3" id="mihir">
+				<br>
+					<a href="{% url 'user_panel:compost' %}">
+			<h4>Composting Techniques</h4>
+		
+			<img src="/media/composting.png" height="200px" width="200px"/></a>
+			<br>
+
+		</div> 
+		<div class="col-sm-3" id="mihir">
+				<br>
+				<a href="{% url 'user_panel:manure' %}">
+			<h4>Fertilizers & Manures</h4>
+			<img src="/media/ferti_manure.png" height="200px" width="200px"/>
+		</a>
+			<br>
+
+		</div>
+		<div class="col-sm-3" id="mihir">
+				<br>
+				<a href="{% url 'user_panel:protection' %}">
+			<h4>Plant Protection</h4>
+			<img src="/media/plant_pct.png" height="200px" width="200px"/></a>
+			<br>
+
+		</div>
+	</div>
+	<br>
+		<div class="row">
+	
+		<div class="col-sm-3" id="mihir">
+				<br>
+				<a href="{% url 'user_panel:pst' %}">
+			<h4>Post Harvest Technologies</h4>
+			<img src="/media/pht.jpg" height="200px" width="200px"/>
+		</a>
+			<br>
+
+		</div> 
+		<div class="col-sm-3" id="mihir">
+				<br>
+				<a href="{% url 'user_panel:marketing' %}">
+			<h4>Organic Marketing</h4>
+			<img src="/media/marketing.png" height="200px" width="200px"/>
+		</a>
+			<br>
+
+		</div>
+		<div class="col-sm-3" id="mihir">
+			
+		</div>
+			<div class="col-sm-3" id="mihir">
+	
+		</div>
+	</div>
+</div>
+<br>
+<br>
+{% endblock %}
